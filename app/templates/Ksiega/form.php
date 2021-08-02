@@ -13,8 +13,10 @@
     <fieldset>
         <legend><?= __('Upload CSV file') ?></legend>
         <?php
-            echo $this->Form->create($document, ['type' => 'file']); //to Ksiega controller
+            echo $this->Form->create($document, ['type' => 'file']); //to Ksiega controller, document entity???
             echo $this->Form->file('submittedfile');
+            
+            // $targetPath = WWW_ROOT. 'document'. DS . 'csv_file'. DS.;
         ?>
 
         <legend><?= __('Enter your ID') ?></legend>

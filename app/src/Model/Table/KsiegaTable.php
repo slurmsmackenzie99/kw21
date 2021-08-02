@@ -40,6 +40,15 @@ class KsiegaTable extends Table
         $this->setTable('ksiega');
         $this->setDisplayField('idKsiega');
         $this->setPrimaryKey('idKsiega');
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'created' => 'new',
+                    'updated' => 'always'
+                ]
+            ]
+        ]);
     }
 
     /**

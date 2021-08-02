@@ -118,8 +118,8 @@ class UsersController extends AppController
         if ($result->isValid()) {
             // redirect to /articles after login success
             $redirect = $this->request->getQuery('redirect', [
-                'controller' => 'Ksiega ',
-                'action' => 'index',
+                'controller' => 'Documents',
+                'action' => 'add',
             ]);
 
             return $this->redirect($redirect);
