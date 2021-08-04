@@ -16,6 +16,19 @@ declare(strict_types=1);
  */
 
 /*
+*CORS error workaround 
+*Soultion from cakePhp forum
+* remove in production
+*/
+// header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Methods: POST, GET, PUT, PATCH, DELETE, OPTIONS');
+// header('Access-Control-Allow-Headers: *');
+// if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+//     exit(0);
+// }
+
+
+/*
  * Configure paths required to find CakePHP + general filepath constants
  */
 require __DIR__ . DIRECTORY_SEPARATOR . 'paths.php';

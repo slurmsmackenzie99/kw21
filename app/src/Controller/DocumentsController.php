@@ -20,26 +20,48 @@ class DocumentsController extends AppController
 	    parent::beforefilter($event);
 	    $this->documentsTableObj = FactoryLocator::get('Table')->get('Documents');
 	}
+
+    //post_document, id and user_id need to be exported together
     public function add(){
-    	$documentEnt = $this->documentsTableObj->newEmptyEntity();
+    	$documentEnt = $this->Documents->newEmptyEntity();
+      
     	if ($this->request->is('post')) {
     	    $documentData = $this->request->getData();
+           
             $documentImage = $this->request->getData('post_document');
+
             $name = $documentImage->getClientFilename();
-            $type = $documentImage->getClientMediaType();
+
             $targetPath = WWW_ROOT. 'documents'. DS . 'post_document'. DS. $name;
+
+            //if file got a name, is not empty and doesn't produce error, move it to destination dir
+            //and assign it it's name
             if (!empty($name)) {
                 if ($documentImage->getSize() > 0 && $documentImage->getError() == 0) {
                     $documentImage->moveTo($targetPath); 
                     $documentData['post_document'] = $name;
                 }
             }
-            $posts = $this->documentsTableObj->patchEntity($documentEnt, $documentData);
-            if ($this->documentsTableObj->save($posts)) {
-                $this->Flash->success(__('Your post has been saved.'));
+
+            $posts = $this->Documents->patchEntity($documentEnt, $documentData);
+          //  debug( $posts);die;
+            // $id = $this->documentsTableObj->patchEntity($documentEnt, $documentId);
+            //below in an if statement
+            //&& $this->documentsTableObj->save($id)
+
+            if ($result=$this->Documents->save($posts)) {
+// debug($result);
+            //    echo  $id = $this->Documents->lastInsertId();die;
+                //adding id
+               // $documentId = $this->request->getData('id');
+
+                //specify the destination directory
+               
+            
+                $this->Flash->success(__('Your id and document has been saved.'));
                 return $this->redirect(['controller'=>'Documents','action' => 'index']);
             }else{
-                $this->Flash->error(__('Unable to add your post.'));
+                $this->Flash->error(__('Unable to add your document.'));
                 return $this->redirect(['controller'=>'Documents','action' => 'add']);
                 }
     	}

@@ -6,14 +6,17 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Document Entity
+ * Getrecord Entity
  *
  * @property int $id
- * @property string $post_image
+ * @property string $region
+ * @property int $kw
+ * @property int $digit
+ * @property bool $checked
  * @property \Cake\I18n\FrozenTime $created
- * @property \Cake\I18n\FrozenTime $updated
+ * @property \Cake\I18n\FrozenTime $modified
  */
-class Document extends Entity
+class Getrecord extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -25,9 +28,11 @@ class Document extends Entity
      * @var array
      */
     protected $_accessible = [
-        'user_id' => true,
-        'post_document' => true,
+        'region' => true,
+        'kw' => true,
+        'digit' => true,
+        'checked' => true,
         'created' => true,
-        'updated' => true,
+        'modified' => true,
     ];
 }

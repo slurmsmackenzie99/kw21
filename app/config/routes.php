@@ -76,15 +76,14 @@ $routes->scope('/', function (RouteBuilder $builder) {
 /*
  * If you need a different set of middleware or none at all,
  * open new scope and define routes there.
- *
- * ```
- * $routes->scope('/api', function (RouteBuilder $builder) {
- *     // No $builder->applyMiddleware() here.
- *     
- *     // Parse specified extensions from URLs
- *     // $builder->setExtensions(['json', 'xml']);
- *     
- *     // Connect API actions here.
- * });
- * ```
  */
+$routes->scope('/api', function (RouteBuilder $routes) {
+     // No $builder->applyMiddleware() here.
+     
+    // Parse specified extensions from URLs
+    $routes->setExtensions(['json', 'xml']);
+    // $builder->connect('getrecords/index', ['controller' => 'Getrecords', 'action' => 'index']);
+    
+   // Connect API actions here.
+ });
+ 

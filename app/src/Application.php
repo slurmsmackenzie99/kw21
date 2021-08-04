@@ -50,6 +50,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
      */
     public function bootstrap(): void
     {
+
         // Call parent to load bootstrap from files.
         parent::bootstrap();
 
@@ -107,9 +108,10 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
 
             // Cross Site Request Forgery (CSRF) Protection Middleware
             // https://book.cakephp.org/4/en/controllers/middleware.html#cross-site-request-forgery-csrf-middleware
-            ->add(new CsrfProtectionMiddleware([
-                'httponly' => true,
-            ]));
+            // ->add(new CsrfProtectionMiddleware([
+            //     'httponly' => true,
+            // ]))
+            ;
 
         return $middlewareQueue;
     }
