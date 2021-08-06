@@ -145,6 +145,7 @@ class GetrecordsController extends AppController
         $this->set(compact('getrecords', 'onerecord', 'encoded', 'env'));
         Log::debug($encoded);
         // $this->set(compact('getrecord'));
+        return $this->render('api_html');
     }
 
     public function receiver(){
