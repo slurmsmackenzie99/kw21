@@ -7,6 +7,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Event\EventInterface;
 use Cake\Core\Configure;
 use Cake\Log\Log;
+
 // use Cake\Log\Engine\BaseLog;
 // use Psr\Log\LoggerInterface;
 
@@ -18,6 +19,16 @@ use Cake\Log\Log;
  */
 class GetrecordsController extends AppController
 {
+
+    var $sections = [
+        '2.2.1' => 'ownership',
+        '2.2.2' => 'treasury',
+        '2.2.3' => 'self_gov',
+        '2.2.4' => 'company',
+        '2.2.5' => 'individual',
+
+    ];
+
     /**
      * Index method
      *
@@ -107,66 +118,97 @@ class GetrecordsController extends AppController
             $this->Flash->error(__('The getrecord could not be deleted. Please, try again.'));
         }
 
-        
+
         return $this->redirect(['action' => 'index']);
     }
 
-    // public function beforeFilter(EventInterface $event)
-    // {
-    //     parent::beforeFilter($event);
-    //     $this->Security->setConfig('unlockedActions', ['index']);
-    // }
-
-    //api shows one record values to the extension that inputs them
-    public function api(){
-        //fetch records to check from the database (from getrecords)
-        // $getrecord = $this->Getrecords->get($id, [
-        //     'contain' => [],
-        // ]);
-        // $connection = ConnectionManager::get('default');
-        // $results = $connection->execute('SELECT * FROM getrecords')
-        // ->fetchAll('assoc');
-        // echo $results;
-
-        // $query = $this->Getrecords->execute('SELECT * FROM getrecords LIMIT 1');
-        // $this->layout = false;
+    public function api()
+    {
         $this->viewBuilder()->enableAutoLayout(false);
-        $onerecord = $this->Getrecords->find()->where(['id' => 1])->all(); //get latest(id DESC) limit 1
-        //najwyższe id jest najnowsze
         $onerecord = $this->Getrecords
             ->find()
             ->order(['id' => 'DESC'])
             ->first();
-
         $encoded = json_encode($onerecord);
-        $env = $this->request->getServerParams();
 
         $getrecords = $this->paginate($this->Getrecords);
-        $this->set(compact('getrecords', 'onerecord', 'encoded', 'env'));
+        $this->set(compact('getrecords', 'encoded'));
         Log::debug($encoded);
-        // $this->set(compact('getrecord'));
         return $this->render('api_html');
     }
 
-    public function receiver(){
-        $data_str = file_get_contents('php://input');
+    public function receiver()
+    {
+        $data_str = file_get_contents('php://input'); //returns all data after HTTP headers of the request
         $data = json_decode($data_str, true);
-        // Log::debug('cos');
-        Log::debug('json','sgsdgsdg');
-        Log::debug('json',$data_str);
+        Log::debug('json', $data_str);
         debug($data);
-        echo $data;
-        debug($_POST);
+//        echo $data;
         $getrecords = $this->paginate($this->Getrecords);
         $this->set(compact('getrecords'));
-        //receive a JSON response from the extension
-        // echo $this->request->getHeader('x-cos-x'); //array to string conversion warning
-        echo $this->request->getHeader('exampleHeaderName'); //array to string conversion warning
-
-        //get request, perform operation, return the response
+//        echo $this->request->getHeader('exampleHeaderName');
         $this->request->getData('');
+    }
 
-       // <div data-json="{'nr':'asdas',}" ><button>find dis </button></div>
-      //  <div data-json="{'nr':'asdas',}" ><button>find dis </button></div>
+    //załóżmy że dostaję taki obiekt w odpowiedzi, moim zdaniem jest wpisać te wartości do bazy
+    //w odpowiednie miejsca
+    function tests()
+    {
+        //$data = QUERY from db?
+        $data = [
+            'params' => [
+                'region' => 'WA1G',
+                'numer' => '00079441',
+                'numerKontrolny' => '5',
+            ],
+            '2.2.1' => [ //udzial
+                0 => [
+                    'numerUdzialu' => '1',
+                    'wielkoscUdzialu' => '1 / 1',
+                    'rodzajWspolnosci' => '---',
+                ],
+            ],
+            '2.2.2' => [ //treasury
+            ],
+            '2.2.3' => [ //non-gov
+            ],
+            '2.2.4' => [ //company
+                0 => [
+                    'listaWskazan' => '1',
+                    'nazwa' => 'BREVITER NIERUCHOMOŚCI SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ',
+                    'siedziba' => 'GRODZISK MAZOWIECKI',
+                    'regon' => '---',
+                    'stanPrzejsciowy' => '---',
+                    'KRS' => '---',
+                ],
+            ],
+            '2.2.5' => [ //individual
+            ],
+        ];
+
+        $params = $data['params'];
+        unset($data['params']);
+        $result = [];
+        foreach ($data as $k => $item) {
+            if ($item) {
+                $section = $this->sections[$k];
+                $result[$section] = $item;
+            };
+
+        }
+        debug($params);
+        debug($result);
+        die;
+
+        //insert $data['params'] into ksiega
+        $ksiegaTable = $this->getTableLocator()->get('Ksiega');
+        $query = $ksiegaTable->query();
+        $query->insert(['idKsiega', 'region', 'number', 'control_number'])
+            ->values([
+                'idKsiega' => 1,
+                'region' => $params['region'],
+                'number' => $params['numer'],
+                'control_number' => $params['numerKontrolny']
+            ])->execute();
     }
 }

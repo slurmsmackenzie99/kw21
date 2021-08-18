@@ -9,9 +9,12 @@ use Cake\ORM\Entity;
  * Document Entity
  *
  * @property int $id
- * @property string $post_image
+ * @property int $user_id
+ * @property string $post_document
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $updated
+ *
+ * @property \App\Model\Entity\User $user
  */
 class Document extends Entity
 {
@@ -29,5 +32,6 @@ class Document extends Entity
         'post_document' => true,
         'created' => true,
         'updated' => true,
+        'user' => true,
     ];
 }

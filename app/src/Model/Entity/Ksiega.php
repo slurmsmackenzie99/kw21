@@ -8,6 +8,8 @@ use Cake\ORM\Entity;
 /**
  * Ksiega Entity
  *
+ * @property int $userID
+ * @property int $id
  * @property int $idKsiega
  * @property string $region
  * @property int $number
@@ -25,6 +27,8 @@ class Ksiega extends Entity
      * @var array
      */
     protected $_accessible = [
+        'userID' => true,
+        'id' => true,
         'region' => true,
         'number' => true,
         'control_number' => true,

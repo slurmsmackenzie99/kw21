@@ -1,0 +1,35 @@
+[33mcommit 27b486dd13ba52ca7f021f1255024749b0aa05aa[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Pawel <zmarlakpawel@gmail.com>
+Date:   Fri Aug 6 11:25:50 2021 +0000
+
+    API umożliwa rozszerzeniu dostęp do wartości z bazy danych
+
+[33mcommit 21b2c4bae261e8fa23d5808059e359bb3cda8041[m
+Author: Pawel <zmarlakpawel@gmail.com>
+Date:   Thu Aug 5 15:26:50 2021 +0000
+
+    Getrecords pokazuje ostatnio dodaną pozycje w divie, receiver przyjmujestring z extension
+
+[33mcommit 5d1428726847a8e776875a44fd59b67db03dac1f[m
+Author: Pawel <zmarlakpawel@gmail.com>
+Date:   Wed Aug 4 15:32:21 2021 +0000
+
+    Getrecords receiver created
+
+[33mcommit e932293a1084980b3c1fa6f2e43a487b560de624[m
+Author: Pawel <zmarlakpawel@gmail.com>
+Date:   Mon Aug 2 08:48:22 2021 +0000
+
+    File upload added, login redirection modified and add user option in login removed
+
+[33mcommit 1536a5e2e6a4a203e913f8e35fc071c96cdb84cd[m
+Author: Pawel <zmarlakpawel@gmail.com>
+Date:   Fri Jul 30 08:49:18 2021 +0000
+
+    Added authentication and sumbission form in the template
+
+[33mcommit 2d5671faeb33478a81bcd45428ee0d75fb25be34[m
+Author: Pawel <zmarlakpawel@gmail.com>
+Date:   Wed Jul 28 09:56:39 2021 +0000
+
+    Initial application skeleton

@@ -290,8 +290,15 @@ return [
          * in app_local.php depending on the applications needs.
          */
         'default' => [
-            'className' => Connection::class,
-            'driver' => Mysql::class,
+            'host' => 'localhost',
+            'username' => 'kw21',
+            'password' => '#20xg3jR',
+
+            'database' => 'kw21',
+            'className' => 'Cake\Database\Connection',
+            // 'className' => Connection::class,
+            'driver' => 'Cake\Database\Driver\Mysql',
+            //'driver' => Mysql::class,
             'persistent' => false,
             'timezone' => 'UTC',
 
@@ -319,7 +326,7 @@ return [
              */
             'quoteIdentifiers' => false,
         ],
-
+        /*
         'ksiega' => [
             'className' => Connection::class,
             'driver' => Mysql::class,

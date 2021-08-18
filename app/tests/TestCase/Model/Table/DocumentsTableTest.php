@@ -25,6 +25,7 @@ class DocumentsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Documents',
+        'app.Users',
     ];
 
     /**
@@ -57,6 +58,16 @@ class DocumentsTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

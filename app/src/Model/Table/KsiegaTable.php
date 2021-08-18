@@ -41,13 +41,8 @@ class KsiegaTable extends Table
         $this->setDisplayField('idKsiega');
         $this->setPrimaryKey('idKsiega');
 
-        $this->addBehavior('Timestamp', [
-            'events' => [
-                'Model.beforeSave' => [
-                    'created' => 'new',
-                    'updated' => 'always'
-                ]
-            ]
+        $this->hasMany('SelfGov', [
+            'foreignKey' => 'ksiega_id',
         ]);
     }
 
@@ -60,6 +55,18 @@ class KsiegaTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->integer('userID')
+            ->requirePresence('userID', 'create')
+            ->notEmptyString('userID')
+            ->add('userID', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
+            ->integer('id')
+            ->requirePresence('id', 'create')
+            ->notEmptyString('id')
+            ->add('id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
             ->integer('idKsiega')
             ->allowEmptyString('idKsiega', null, 'create');
 
@@ -68,7 +75,7 @@ class KsiegaTable extends Table
             ->maxLength('region', 20)
             ->requirePresence('region', 'create')
             ->notEmptyString('region');
-            
+
         $validator
             ->integer('number')
             ->requirePresence('number', 'create')
@@ -80,5 +87,20 @@ class KsiegaTable extends Table
             ->notEmptyString('control_number');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['id']), ['errorField' => 'id']);
+        $rules->add($rules->isUnique(['userID']), ['errorField' => 'userID']);
+
+        return $rules;
     }
 }

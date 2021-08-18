@@ -19,8 +19,12 @@
             <h3><?= h($document->id) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Post Image') ?></th>
-                    <td><?= h($document->post_image) ?></td>
+                    <th><?= __('User') ?></th>
+                    <td><?= $document->has('user') ? $this->Html->link($document->user->userID, ['controller' => 'Users', 'action' => 'view', $document->user->userID]) : '' ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Post Document') ?></th>
+                    <td><?= h($document->post_document) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>

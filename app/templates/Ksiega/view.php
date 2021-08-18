@@ -23,6 +23,14 @@
                     <td><?= h($ksiega->region) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('UserID') ?></th>
+                    <td><?= $this->Number->format($ksiega->userID) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Id') ?></th>
+                    <td><?= $this->Number->format($ksiega->id) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('IdKsiega') ?></th>
                     <td><?= $this->Number->format($ksiega->idKsiega) ?></td>
                 </tr>

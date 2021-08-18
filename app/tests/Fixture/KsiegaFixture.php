@@ -23,12 +23,17 @@ class KsiegaFixture extends TestFixture
      */
     // phpcs:disable
     public $fields = [
-        'idKsiega' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'userID' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'idKsiega' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'region' => ['type' => 'string', 'length' => 20, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
         'number' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'control_number' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['idKsiega'], 'length' => []],
+            'id' => ['type' => 'unique', 'columns' => ['id'], 'length' => []],
+            'userID' => ['type' => 'unique', 'columns' => ['userID'], 'length' => []],
+            'ksiega_ibfk_2' => ['type' => 'foreign', 'columns' => ['userID'], 'references' => ['users', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -45,6 +50,8 @@ class KsiegaFixture extends TestFixture
     {
         $this->records = [
             [
+                'userID' => 1,
+                'id' => 1,
                 'idKsiega' => 1,
                 'region' => 'Lorem ipsum dolor ',
                 'number' => 1,

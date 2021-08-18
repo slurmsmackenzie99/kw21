@@ -22,7 +22,8 @@
             <fieldset>
                 <legend><?= __('Edit Document') ?></legend>
                 <?php
-                    echo $this->Form->control('post_image');
+                    echo $this->Form->control('user_id', ['options' => $users]);
+                    echo $this->Form->control('post_document');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

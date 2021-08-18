@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Documents Model
  *
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ *
  * @method \App\Model\Entity\Document newEmptyEntity()
  * @method \App\Model\Entity\Document newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Document[] newEntities(array $data, array $options = [])
@@ -43,13 +45,11 @@ class DocumentsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp', [
-            'events' => [
-                'Model.beforeSave' => [
-                    'created' => 'new',
-                    'updated' => 'always'
-                ]
-            ]
+        $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -62,19 +62,29 @@ class DocumentsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->integer('id')
+            ->allowEmptyString('id', null, 'create');
+
+        $validator
+            ->scalar('post_document')
+            ->maxLength('post_document', 100)
+            ->requirePresence('post_document', 'create')
             ->notEmptyString('post_document');
 
         return $validator;
-        // $validator
-        //     ->integer('id')
-        //     ->allowEmptyString('id', null, 'create');
+    }
 
-        // $validator
-        //     ->scalar('post_image')
-        //     ->maxLength('post_image', 100)
-        //     ->requirePresence('post_image', 'create')
-        //     ->notEmptyFile('post_image');
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
-        // return $validator;
+        return $rules;
     }
 }

@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\Getrecord $getrecord
  */
 ?>
+<?= "Hello"?>
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -26,5 +27,6 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         </div>
+        <?="Test" ?>
     </div>
 </div>

@@ -12,7 +12,8 @@
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('post_image') ?></th>
+                    <th><?= $this->Paginator->sort('user_id') ?></th>
+                    <th><?= $this->Paginator->sort('post_document') ?></th>
                     <th><?= $this->Paginator->sort('created') ?></th>
                     <th><?= $this->Paginator->sort('updated') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
@@ -22,7 +23,8 @@
                 <?php foreach ($documents as $document): ?>
                 <tr>
                     <td><?= $this->Number->format($document->id) ?></td>
-                    <td><?= h($document->post_image) ?></td>
+                    <td><?= $document->has('user') ? $this->Html->link($document->user->userID, ['controller' => 'Users', 'action' => 'view', $document->user->userID]) : '' ?></td>
+                    <td><?= h($document->post_document) ?></td>
                     <td><?= h($document->created) ?></td>
                     <td><?= h($document->updated) ?></td>
                     <td class="actions">
