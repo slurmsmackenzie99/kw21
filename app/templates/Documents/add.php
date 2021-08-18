@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Document $document
+ * @var \App\Model\Entity\Document[]|\Cake\Collection\CollectionInterface $documents
  */
 ?>
 <div class="row">
@@ -17,8 +18,8 @@
             <fieldset>
                 <legend><?= __('Add Document') ?></legend>
                 <?php
-                    echo $this->Form->control('user_id', ['options' => $users]);
-                    echo $this->Form->control('post_document');
+                    echo $this->Form->control('user_id', ['type' => 'text', 'options' => $users]);
+                    echo $this->Form->control('post_document', ['type'=>'file', 'class'=>'form-control','required'=>false]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

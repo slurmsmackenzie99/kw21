@@ -12,6 +12,7 @@ use Cake\ORM\Locator\LocatorAwareTrait;
  *
  * @property \App\Model\Table\DocumentsTable $Documents
  * @property \App\Model\Table\KsiegaTable $Ksiega
+ * @property \App\Model\Table\UsersTable $Users
  * @method \App\Model\Entity\Document[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class DocumentsController extends AppController
@@ -22,16 +23,18 @@ class DocumentsController extends AppController
     public function beforefilter(EventInterface $event){
         parent::beforefilter($event);
         $this->documentsTableObj = FactoryLocator::get('Table')->get('Documents');
-        $this->documentsTableObj = FactoryLocator::get('Table')->get('Ksiega');
+        $this->ksiegaTableObj = FactoryLocator::get('Table')->get('Ksiega');
+        $this->usersTableObj = FactoryLocator::get('Table')->get('Users');
     }
 
     //post_document, id and user_id need to be exported together
     public function add(){
+        $document = $this->Documents->newEmptyEntity();
         $documentEnt = $this->Documents->newEmptyEntity();
-//        $ksiegaEntRegion = $this->Ksiega->newEmptyEntity();
         $ksiegaTable = $this->getTableLocator()->get('Ksiega');
+        $usersTable = $this->getTableLocator()->get('Users');
         $ksiega = $ksiegaTable->newEmptyEntity();
-        //region, number, control_number
+        $users = $usersTable->newEmptyEntity();
 
         if ($this->request->is('post')) {
             $documentData = $this->request->getData();
@@ -39,7 +42,7 @@ class DocumentsController extends AppController
             $documentText = $this->request->getData('post_document');
 
             $userid = $this->request->getData('user_id');
-            $name = $documentText->getClientFilename();
+            $name = $documentData->getClientFilename();
 
             $targetPath = WWW_ROOT. 'documents'. DS . 'post_document'. DS. $name;
 
@@ -54,16 +57,7 @@ class DocumentsController extends AppController
 
             $posts = $this->Documents->patchEntity($documentEnt, $documentData);
 
-            // debug( $posts);die;
-            // $id = $this->documentsTableObj->patchEntity($documentEnt, $documentId);
-            //below in an if statement
-            //&& $this->documentsTableObj->save($id)
-
             if ($result=$this->Documents->save($posts)) {
-                // echo  $id = $this->Documents->lastInsertId();
-                //adding id
-                // $documentId = $this->request->getData('id');
-                //specify the destination directory
                 $this->Flash->success(__('Your id and document has been saved.'));
                 return $this->redirect(['controller'=>'Documents','action' => 'index']);
             }else{
@@ -71,11 +65,8 @@ class DocumentsController extends AppController
                 return $this->redirect(['controller'=>'Documents','action' => 'add']);
             }
         }
-        $this->set(compact('documentEnt', $documentEnt));
-
-        //add the information from the files to books table and assign them id
-        //$my_file = file_get_contents(__DIR__ . '/webroot/documents/post_document/test.txt');
-        //echo $my_file;
+        $this->set(compact('documentEnt', 'document', 'users'));
+        // $this->set('documentEnt', $documentEnt, 'document', $document);
     }
     /**
      * Index method
