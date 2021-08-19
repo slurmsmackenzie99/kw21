@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\KsiegaTable;
+use App\Model\Table\ClientsTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\KsiegaTable Test Case
+ * App\Model\Table\ClientsTable Test Case
  */
-class KsiegaTableTest extends TestCase
+class ClientsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\KsiegaTable
+     * @var \App\Model\Table\ClientsTable
      */
-    protected $Ksiega;
+    protected $Clients;
 
     /**
      * Fixtures
@@ -24,8 +24,7 @@ class KsiegaTableTest extends TestCase
      * @var array
      */
     protected $fixtures = [
-        'app.Ksiega',
-        'app.SelfGov',
+        'app.Clients',
     ];
 
     /**
@@ -36,8 +35,8 @@ class KsiegaTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Ksiega') ? [] : ['className' => KsiegaTable::class];
-        $this->Ksiega = $this->getTableLocator()->get('Ksiega', $config);
+        $config = $this->getTableLocator()->exists('Clients') ? [] : ['className' => ClientsTable::class];
+        $this->Clients = $this->getTableLocator()->get('Clients', $config);
     }
 
     /**
@@ -47,7 +46,7 @@ class KsiegaTableTest extends TestCase
      */
     public function tearDown(): void
     {
-        unset($this->Ksiega);
+        unset($this->Clients);
 
         parent::tearDown();
     }

@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\KsiegaController;
+use App\Controller\ClientsController;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Controller\KsiegaController Test Case
+ * App\Controller\ClientsController Test Case
  *
- * @uses \App\Controller\KsiegaController
+ * @uses \App\Controller\ClientsController
  */
-class KsiegaControllerTest extends TestCase
+class ClientsControllerTest extends TestCase
 {
     use IntegrationTestTrait;
 
@@ -22,8 +22,7 @@ class KsiegaControllerTest extends TestCase
      * @var array
      */
     protected $fixtures = [
-        'app.Ksiega',
-        'app.SelfGov',
+        'app.Clients',
     ];
 
     /**

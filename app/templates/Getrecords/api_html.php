@@ -1,7 +1,6 @@
 <div style="position:relative" id="test">
     <div style="background-color:white;left:0px;top:0px;position: fixed;width:100%;height:100%;color:red;z-index:100;" id="test">
     <div><textarea><?= $encoded ?></textarea></div>
-        <?php echo "aab" ?>
 <div class="table-responsive">
         <table id="api_data">
             <tbody>

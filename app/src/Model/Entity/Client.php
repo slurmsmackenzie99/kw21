@@ -6,18 +6,12 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Ksiega Entity
+ * Client Entity
  *
  * @property int $id
- * @property int $idKsiega
- * @property int $clientID
- * @property string $region
- * @property int $number
- * @property int $control_number
- *
- * @property \App\Model\Entity\SelfGov[] $self_gov
+ * @property string $username
  */
-class Ksiega extends Entity
+class Client extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -29,10 +23,6 @@ class Ksiega extends Entity
      * @var array
      */
     protected $_accessible = [
-        'idKsiega' => true,
-        'clientID' => true,
-        'region' => true,
-        'number' => true,
-        'control_number' => true,
+        'username' => true,
     ];
 }

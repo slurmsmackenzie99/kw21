@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace App\Controller;
 
 /**
- * Ksiega Controller
+ * Clients Controller
  *
- * @property \App\Model\Table\KsiegaTable $Ksiega
- * @method \App\Model\Entity\Ksiega[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property \App\Model\Table\ClientsTable $Clients
+ * @method \App\Model\Entity\Client[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class KsiegaController extends AppController
+class ClientsController extends AppController
 {
     /**
      * Index method
@@ -18,25 +18,25 @@ class KsiegaController extends AppController
      */
     public function index()
     {
-        $ksiega = $this->paginate($this->Ksiega);
+        $clients = $this->paginate($this->Clients);
 
-        $this->set(compact('ksiega'));
+        $this->set(compact('clients'));
     }
 
     /**
      * View method
      *
-     * @param string|null $id Ksiega id.
+     * @param string|null $id Client id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $ksiega = $this->Ksiega->get($id, [
-            'contain' => ['SelfGov'],
+        $client = $this->Clients->get($id, [
+            'contain' => [],
         ]);
 
-        $this->set(compact('ksiega'));
+        $this->set(compact('client'));
     }
 
     /**
@@ -46,58 +46,58 @@ class KsiegaController extends AppController
      */
     public function add()
     {
-        $ksiega = $this->Ksiega->newEmptyEntity();
+        $client = $this->Clients->newEmptyEntity();
         if ($this->request->is('post')) {
-            $ksiega = $this->Ksiega->patchEntity($ksiega, $this->request->getData());
-            if ($this->Ksiega->save($ksiega)) {
-                $this->Flash->success(__('The ksiega has been saved.'));
+            $client = $this->Clients->patchEntity($client, $this->request->getData());
+            if ($this->Clients->save($client)) {
+                $this->Flash->success(__('The client has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ksiega could not be saved. Please, try again.'));
+            $this->Flash->error(__('The client could not be saved. Please, try again.'));
         }
-        $this->set(compact('ksiega'));
+        $this->set(compact('client'));
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Ksiega id.
+     * @param string|null $id Client id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $ksiega = $this->Ksiega->get($id, [
+        $client = $this->Clients->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $ksiega = $this->Ksiega->patchEntity($ksiega, $this->request->getData());
-            if ($this->Ksiega->save($ksiega)) {
-                $this->Flash->success(__('The ksiega has been saved.'));
+            $client = $this->Clients->patchEntity($client, $this->request->getData());
+            if ($this->Clients->save($client)) {
+                $this->Flash->success(__('The client has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The ksiega could not be saved. Please, try again.'));
+            $this->Flash->error(__('The client could not be saved. Please, try again.'));
         }
-        $this->set(compact('ksiega'));
+        $this->set(compact('client'));
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Ksiega id.
+     * @param string|null $id Client id.
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $ksiega = $this->Ksiega->get($id);
-        if ($this->Ksiega->delete($ksiega)) {
-            $this->Flash->success(__('The ksiega has been deleted.'));
+        $client = $this->Clients->get($id);
+        if ($this->Clients->delete($client)) {
+            $this->Flash->success(__('The client has been deleted.'));
         } else {
-            $this->Flash->error(__('The ksiega could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The client could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);

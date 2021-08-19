@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Document[]|\Cake\Collection\CollectionInterface $documents
  */
 ?>
-<?php debug($documents); die; ?>
 <div class="documents index content">
     <?= $this->Html->link(__('New Document'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Documents') ?></h3>

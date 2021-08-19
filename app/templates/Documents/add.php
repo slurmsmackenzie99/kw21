@@ -18,7 +18,7 @@
             <fieldset>
                 <legend><?= __('Add Document') ?></legend>
                 <?php
-                    echo $this->Form->control('user_id', ['type' => 'text', 'options' => $users]);
+                    echo $this->Form->control('id', ['type' => 'text', 'options' => $users]);
                     echo $this->Form->control('post_document', ['type'=>'file', 'class'=>'form-control','required'=>false]);
                 ?>
             </fieldset>

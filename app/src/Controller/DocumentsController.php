@@ -27,6 +27,9 @@ class DocumentsController extends AppController
         $this->usersTableObj = FactoryLocator::get('Table')->get('Users');
     }
 
+    public function addtext(){
+       //TODO
+    }
     //post_document, id and user_id need to be exported together
     public function add(){
         $document = $this->Documents->newEmptyEntity();
@@ -40,11 +43,13 @@ class DocumentsController extends AppController
             $documentData = $this->request->getData();
 
             $documentText = $this->request->getData('post_document');
+            $documentName = $this->request->getData('post_document');
 
             $userid = $this->request->getData('user_id');
-            $name = $documentData->getClientFilename();
+            // $name = $documentData->getClientFilename();
+            // $name = $documentText->getClientFilename();
 
-            $targetPath = WWW_ROOT. 'documents'. DS . 'post_document'. DS. $name;
+            $targetPath = WWW_ROOT. 'documents'. DS . 'post_document'. DS. $userid;
 
             //if file got a name, is not empty and doesn't produce error, move it to destination dir
             //and assign it it's name
