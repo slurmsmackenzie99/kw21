@@ -102,4 +102,17 @@ class KsiegaController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    public function api()
+    {
+        $this->viewBuilder()->enableAutoLayout(false);
+        $onerecord = $this->Ksiega
+            ->find()
+            ->order(['id' => 'DESC'])
+            ->first();
+        $encoded = json_encode($onerecord);
+
+        $ksiega = $this->paginate($this->Getrecords);
+        $this->set(compact('ksiega', 'encoded'));
+        return $this->render('api_html');
+    }
 }
