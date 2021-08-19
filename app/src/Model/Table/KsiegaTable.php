@@ -41,11 +41,11 @@ class KsiegaTable extends Table
 
         $this->setTable('ksiega');
         $this->setDisplayField('idKsiega');
-        $this->setPrimaryKey('idKsiega');
+        $this->setPrimaryKey('id');
 
-        $this->hasMany('SelfGov', [
-            'foreignKey' => 'ksiega_id',
-        ]);
+        // $this->hasMany('SelfGov', [
+        //     'foreignKey' => 'ksiega_id',
+        // ]);
     }
 
     /**
@@ -62,7 +62,7 @@ class KsiegaTable extends Table
 
         $validator
             ->integer('idKsiega')
-            ->requirePresence('idKsiega', 'create')
+            // ->requirePresence('idKsiega', 'create')
             ->notEmptyString('idKsiega')
             ->add('idKsiega', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 

@@ -17,10 +17,8 @@
             <fieldset>
                 <legend><?= __('Add Ksiega') ?></legend>
                 <?php
-                    echo $this->Form->control('id');
-                    echo "te";
-                    echo $this->Form->control('idKsiega');
-                    echo "st";
+                    // echo $this->Form->control('id');
+                    // echo $this->Form->control('idKsiega');
                     echo $this->Form->control('clientID');
                     echo $this->Form->control('region');
                     echo $this->Form->control('number');
