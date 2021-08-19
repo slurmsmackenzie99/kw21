@@ -24,7 +24,6 @@ class KsiegaFixture extends TestFixture
     // phpcs:disable
     public $fields = [
         'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'idKsiega' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'clientID' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'region' => ['type' => 'string', 'length' => 20, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
         'number' => ['type' => 'integer', 'length' => null, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
@@ -35,7 +34,6 @@ class KsiegaFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'idKsiega' => ['type' => 'unique', 'columns' => ['idKsiega'], 'length' => []],
             'ksiega_ibfk_1' => ['type' => 'foreign', 'columns' => ['clientID'], 'references' => ['clients', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
@@ -54,7 +52,6 @@ class KsiegaFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'idKsiega' => 1,
                 'clientID' => 1,
                 'region' => 'Lorem ipsum dolor ',
                 'number' => 1,

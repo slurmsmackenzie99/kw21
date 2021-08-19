@@ -33,7 +33,7 @@ class KsiegaController extends AppController
     public function view($id = null)
     {
         $ksiega = $this->Ksiega->get($id, [
-            'contain' => ['SelfGov'],
+            'contain' => [],
         ]);
 
         $this->set(compact('ksiega'));

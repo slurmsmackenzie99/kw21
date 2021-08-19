@@ -9,13 +9,10 @@ use Cake\ORM\Entity;
  * Ksiega Entity
  *
  * @property int $id
- * @property int $idKsiega
  * @property int $clientID
  * @property string $region
  * @property int $number
  * @property int $control_number
- *
- * @property \App\Model\Entity\SelfGov[] $self_gov
  */
 class Ksiega extends Entity
 {
@@ -29,7 +26,6 @@ class Ksiega extends Entity
      * @var array
      */
     protected $_accessible = [
-        'idKsiega' => true,
         'clientID' => true,
         'region' => true,
         'number' => true,

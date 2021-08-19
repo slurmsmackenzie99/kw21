@@ -23,7 +23,6 @@ class KsiegaControllerTest extends TestCase
      */
     protected $fixtures = [
         'app.Ksiega',
-        'app.SelfGov',
     ];
 
     /**

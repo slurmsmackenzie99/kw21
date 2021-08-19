@@ -25,7 +25,6 @@ class KsiegaTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Ksiega',
-        'app.SelfGov',
     ];
 
     /**

@@ -10,8 +10,8 @@
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?= $this->Form->postLink(
                 __('Delete'),
-                ['action' => 'delete', $ksiega->idKsiega],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $ksiega->idKsiega), 'class' => 'side-nav-item']
+                ['action' => 'delete', $ksiega->id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $ksiega->id), 'class' => 'side-nav-item']
             ) ?>
             <?= $this->Html->link(__('List Ksiega'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
@@ -22,7 +22,6 @@
             <fieldset>
                 <legend><?= __('Edit Ksiega') ?></legend>
                 <?php
-                    echo $this->Form->control('id');
                     echo $this->Form->control('clientID');
                     echo $this->Form->control('region');
                     echo $this->Form->control('number');

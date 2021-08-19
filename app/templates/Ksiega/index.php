@@ -12,7 +12,6 @@
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('idKsiega') ?></th>
                     <th><?= $this->Paginator->sort('clientID') ?></th>
                     <th><?= $this->Paginator->sort('region') ?></th>
                     <th><?= $this->Paginator->sort('number') ?></th>
@@ -24,15 +23,14 @@
                 <?php foreach ($ksiega as $ksiega): ?>
                 <tr>
                     <td><?= $this->Number->format($ksiega->id) ?></td>
-                    <td><?= $this->Number->format($ksiega->idKsiega) ?></td>
                     <td><?= $this->Number->format($ksiega->clientID) ?></td>
                     <td><?= h($ksiega->region) ?></td>
                     <td><?= $this->Number->format($ksiega->number) ?></td>
                     <td><?= $this->Number->format($ksiega->control_number) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $ksiega->idKsiega]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $ksiega->idKsiega]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $ksiega->idKsiega], ['confirm' => __('Are you sure you want to delete # {0}?', $ksiega->idKsiega)]) ?>
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $ksiega->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $ksiega->id]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $ksiega->id], ['confirm' => __('Are you sure you want to delete # {0}?', $ksiega->id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
