@@ -11,6 +11,11 @@ namespace App\Controller;
  */
 class KsiegaController extends AppController
 {
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions(['api', 'api_html']);
+    }
     /**
      * Index method
      *
@@ -102,6 +107,7 @@ class KsiegaController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
     public function api()
     {
         $this->viewBuilder()->enableAutoLayout(false);
@@ -111,7 +117,7 @@ class KsiegaController extends AppController
             ->first();
         $encoded = json_encode($onerecord);
 
-        $ksiega = $this->paginate($this->Getrecords);
+        $ksiega = $this->paginate($this->Ksiega);
         $this->set(compact('ksiega', 'encoded'));
         return $this->render('api_html');
     }

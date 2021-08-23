@@ -132,7 +132,8 @@ class GetrecordsController extends AppController
         $encoded = json_encode($onerecord);
 
         $getrecords = $this->paginate($this->Getrecords);
-        $this->set(compact('getrecords', 'encoded'));
+        // $getrecords = $this->Getrecords->get($id);        
+        $this->set(compact('getrecords', 'encoded', 'onerecord'));
         Log::debug($encoded);
         return $this->render('api_html');
     }
