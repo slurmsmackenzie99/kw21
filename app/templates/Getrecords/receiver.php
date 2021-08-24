@@ -4,7 +4,6 @@
  * @var \App\Model\Entity\Getrecord[]|\Cake\Collection\CollectionInterface $getrecords
  */
 ?>
-<?php echo "This is" ?>
 <div class="getrecords receiver content">
 <div class="table-responsive">
     <table>

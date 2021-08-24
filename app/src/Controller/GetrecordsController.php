@@ -7,6 +7,8 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Event\EventInterface;
 use Cake\Core\Configure;
 use Cake\Log\Log;
+use Cake\I18n\Time;
+
 
 // use Cake\Log\Engine\BaseLog;
 // use Psr\Log\LoggerInterface;
@@ -138,21 +140,104 @@ class GetrecordsController extends AppController
         return $this->render('api_html');
     }
 
-    public function receiver()
-    {
-        $data_str = file_get_contents('php://input'); //returns all data after HTTP headers of the request
-        $data = json_decode($data_str, true);
-        Log::debug('json', $data_str);
-        debug($data);
-//        echo $data;
-        $getrecords = $this->paginate($this->Getrecords);
-        $this->set(compact('getrecords'));
-//        echo $this->request->getHeader('exampleHeaderName');
-        $this->request->getData('');
+    public function test3(){
+        $str='{"serializedData":{"params":{"region":"SZ1S","numer":"00070029","numerKontrolny":"2"},"2.2.1":[{"numerUdzialu":"1","wielkoscUdzialu":"1 / 1","rodzajWspolnosci":"---"}],"2.2.2":[],"2.2.3":[],"2.2.4":[],"2.2.5":[{"listaWskazan":"1","imiePierwsze":"JANUSZ","imieDrugie":"---","nazwisko":"CIAPUTA","drugiCzlonNazwisko":"---","imieOjca":"WŁADYSŁAW","imieMatki":"LEOKADIA","pesel":"---"}]},"idrecord":"7"}';
+        $jsonData = json_decode($str,true);
+        debug($jsonData["serializedData"]);
+        $jsonData = json_decode($str);
+        $sd = json_encode($jsonData->serializedData);
+        debug($sd);
+        echo $sd;
+        echo md5($sd);
+        $jsonData = json_decode($str);
+        debug($jsonData);
+        echo "jsonData data type is: " . gettype($jsonData);
+        $ser = $jsonData->serializedData;
+        echo "<br>";
+        echo "ser data type is: " . gettype($ser);
+        // $ser = serialize($ser);
+        // echo $jsonData->serializedData;
+        $my_id = $jsonData->idrecord;
+        echo "<br>";
+        echo "my_id data type is: " . gettype($my_id);
+
+        debug($para);
+        $para= $jsonData->serializedData->params;
+        $key = "2.2.1";
+        $cos = $jsonData->serializedData->$key;
+        debug($cos);
+        echo $jsonData->idrecord;
+        die;
     }
 
-    //załóżmy że dostaję taki obiekt w odpowiedzi, moim zdaniem jest wpisać te wartości do bazy
-    //w odpowiednie miejsca
+    public function receiver()
+    {   
+        Log::debug('tost');
+        $jsonData = $this->request->input('json_decode', true);
+
+        //id
+        debug($jsonData["idrecord"]);
+        $iddd = $jsonData["idrecord"];
+        debug($iddd);
+        $my_id = json_encode($jsonData["idrecord"]);
+        $my_id = intval($iddd);
+        debug($my_id);
+
+        //serializedData
+        $sd = json_encode($jsonData->serializedData);
+        // $my_id = json_encode($jsonData->idrecord);
+        $md5 = md5($sd);
+        
+        echo "my_id is: " . $my_id . " and md5 is: " . $md5;
+        // echo gettype($jsonData);
+        // $object = (object) $jsonData;
+        // $ser = $object->serializedData;
+        // debug($ser);
+        // $ser = (object)$ser;
+
+        // $ser = implode(" ", $ser);
+        //$ser = (string)$ser;
+        //$ser = json_decode($ser);
+        
+        // $idd = $object->idrecord;
+        // debug($idd);
+        // echo "idd is: " . $idd;
+        // $idd = (string)$idd;
+        // echo gettype($idd);
+        // $idd = json_decode($idd);
+
+        // echo implode(",",$jsonData);
+
+        // debug($jsonData);
+
+        // debug($jsonData);
+        // $my_serialized_data = $jsonData->serializedData;
+        // $my_id_record = $jsonData->idrecord;
+        // debug($my_serialized_data);
+        // die;
+        // $jsonData->serializedData->params;
+        // $key = "2.2.1";
+        // $cos = $jsonData->serializedData->$key;
+        // debug($cos);
+        // echo    $jsonData->idrecord;
+
+        $table = $this->getTableLocator()->get('ChangeKw');
+        $query = $table->query();
+        $query->insert(['ksiega_id', 'last_checked', 'string_dzial_drugi', 'counter'])
+            ->values([
+                // id => $idFromJson,
+                'ksiega_id' => $my_id,
+                'last_checked' => Time::now(),
+                'string_dzial_drugi' => $md5,
+                'counter' => 2 //+1?
+            ])->execute();
+
+
+
+        $getrecords = $this->paginate($this->Getrecords);
+        $this->set(compact('getrecords'));
+    }
+
     function tests()
     {
         //$data = QUERY from db?
