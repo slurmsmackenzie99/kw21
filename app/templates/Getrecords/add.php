@@ -27,6 +27,6 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         </div>
-        <?="Test" ?>
+        <?="Test working" ?>
     </div>
 </div>
