@@ -23,28 +23,24 @@
                     <td><?= h($getrecord->region) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Number') ?></th>
+                    <td><?= h($getrecord->number) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($getrecord->id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Kw') ?></th>
-                    <td><?= $this->Number->format($getrecord->kw) ?></td>
+                    <th><?= __('ClientID') ?></th>
+                    <td><?= $this->Number->format($getrecord->clientID) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Digit') ?></th>
-                    <td><?= $this->Number->format($getrecord->digit) ?></td>
+                    <th><?= __('Control Number') ?></th>
+                    <td><?= $this->Number->format($getrecord->control_number) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Created') ?></th>
-                    <td><?= h($getrecord->created) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Modified') ?></th>
-                    <td><?= h($getrecord->modified) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Checked') ?></th>
-                    <td><?= $getrecord->checked ? __('Yes') : __('No'); ?></td>
+                    <th><?= __('Done') ?></th>
+                    <td><?= $this->Number->format($getrecord->done) ?></td>
                 </tr>
             </table>
         </div>

@@ -12,12 +12,11 @@
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
+                    <th><?= $this->Paginator->sort('clientID') ?></th>
                     <th><?= $this->Paginator->sort('region') ?></th>
-                    <th><?= $this->Paginator->sort('kw') ?></th>
-                    <th><?= $this->Paginator->sort('digit') ?></th>
-                    <th><?= $this->Paginator->sort('checked') ?></th>
-                    <th><?= $this->Paginator->sort('created') ?></th>
-                    <th><?= $this->Paginator->sort('modified') ?></th>
+                    <th><?= $this->Paginator->sort('number') ?></th>
+                    <th><?= $this->Paginator->sort('control_number') ?></th>
+                    <th><?= $this->Paginator->sort('done') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -25,12 +24,11 @@
                 <?php foreach ($getrecords as $getrecord): ?>
                 <tr>
                     <td><?= $this->Number->format($getrecord->id) ?></td>
+                    <td><?= $this->Number->format($getrecord->clientID) ?></td>
                     <td><?= h($getrecord->region) ?></td>
-                    <td><?= $this->Number->format($getrecord->kw) ?></td>
-                    <td><?= $this->Number->format($getrecord->digit) ?></td>
-                    <td><?= h($getrecord->checked) ?></td>
-                    <td><?= h($getrecord->created) ?></td>
-                    <td><?= h($getrecord->modified) ?></td>
+                    <td><?= h($getrecord->number) ?></td>
+                    <td><?= $this->Number->format($getrecord->control_number) ?></td>
+                    <td><?= $this->Number->format($getrecord->done) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $getrecord->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $getrecord->id]) ?>

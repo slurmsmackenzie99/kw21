@@ -38,6 +38,7 @@ class GetrecordsController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->setLayout('kw_layout');
         $getrecords = $this->paginate($this->Getrecords);
 
         $this->set(compact('getrecords'));
@@ -134,14 +135,14 @@ class GetrecordsController extends AppController
         $encoded = json_encode($onerecord);
 
         $getrecords = $this->paginate($this->Getrecords);
-        // $getrecords = $this->Getrecords->get($id);        
+        // $getrecords = $this->Getrecords->get($id);
         $this->set(compact('getrecords', 'encoded', 'onerecord'));
         // Log::debug($encoded);
         return $this->render('api_html');
     }
 
     public function receiver()
-    {   
+    {
         Log::debug('should appear once');
 
         $jsonData = $this->request->input('json_decode', true);
@@ -155,23 +156,27 @@ class GetrecordsController extends AppController
         $sd = json_encode($jsonData->serializedData);
         $md5 = md5($sd);
 
+        $getrecordsTable = $this->getTableLocator()->get('Getrecords');
+        $getrecords = $getrecordsTable->get($my_id);
+
         //query inputs info from extension into change_kw table
         $table = $this->getTableLocator()->get('ChangeKw');
         $query = $table->query();
-        $query->insert(['ksiega_id', 'last_checked', 'string_dzial_drugi', 'counter'])
+        $query->insert(['getrecords_id', 'last_checked', 'string_dzial_drugi', 'counter'])
             ->values([
                 // id => $idFromJson,
-                'ksiega_id' => $my_id,
+                'getrecords_id' => $my_id,
+              //  'client_id' => $getrecords->client_id,
                 'last_checked' => Time::now(),
                 'string_dzial_drugi' => $md5,
                 'counter' => 2 //TODO: counter should increase when md5 is different than before
             ])->execute();
 
         //changes done status from 0 to 1 upon completion
-        $getrecordsTable = $this->getTableLocator()->get('Getrecords');
-        $getrecords = $getrecordsTable->get($my_id);
+       // $getrecordsTable = $this->getTableLocator()->get('Getrecords');
+      //  $getrecords = $getrecordsTable->get($my_id);
         $getrecords->done = 1;
-        $getrecordsTable->save($getrecords);          
+        $getrecordsTable->save($getrecords);
 
         $getrecords = $this->paginate($this->Getrecords);
         $this->set(compact('getrecords'));
@@ -257,8 +262,7 @@ class GetrecordsController extends AppController
         $my_id = $jsonData->idrecord;
         echo "<br>";
         echo "my_id data type is: " . gettype($my_id);
-
-        debug($para);
+        
         $para= $jsonData->serializedData->params;
         $key = "2.2.1";
         $cos = $jsonData->serializedData->$key;
