@@ -6,19 +6,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Getrecord Entity
+ * ClientsKw Entity
  *
  * @property int $id
  * @property int $client_id
- * @property string $region
- * @property string $number
- * @property int $control_number
- * @property int $done
+ * @property int $getrecords_id
  *
  * @property \App\Model\Entity\Client $client
- * @property \App\Model\Entity\CheckedRecord[] $checked_records
+ * @property \App\Model\Entity\Getrecord $getrecord
  */
-class Getrecord extends Entity
+class ClientsKw extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -31,11 +28,8 @@ class Getrecord extends Entity
      */
     protected $_accessible = [
         'client_id' => true,
-        'region' => true,
-        'number' => true,
-        'control_number' => true,
-        'done' => true,
+        'getrecords_id' => true,
         'client' => true,
-        'checked_records' => true,
+        'getrecord' => true,
     ];
 }

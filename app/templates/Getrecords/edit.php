@@ -22,10 +22,11 @@
             <fieldset>
                 <legend><?= __('Edit Getrecord') ?></legend>
                 <?php
+                    echo $this->Form->control('client_id', ['options' => $clients]);
                     echo $this->Form->control('region');
-                    echo $this->Form->control('kw');
-                    echo $this->Form->control('digit');
-                    echo $this->Form->control('checked');
+                    echo $this->Form->control('number');
+                    echo $this->Form->control('control_number');
+                    echo $this->Form->control('done');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

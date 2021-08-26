@@ -11,6 +11,10 @@ use Cake\Validation\Validator;
 /**
  * Clients Model
  *
+ * @property \App\Model\Table\ClientsKwTable&\Cake\ORM\Association\HasMany $ClientsKw
+ * @property \App\Model\Table\GetrecordsTable&\Cake\ORM\Association\HasMany $Getrecords
+ * @property \App\Model\Table\ResultsTable&\Cake\ORM\Association\HasMany $Results
+ *
  * @method \App\Model\Entity\Client newEmptyEntity()
  * @method \App\Model\Entity\Client newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Client[] newEntities(array $data, array $options = [])
@@ -40,6 +44,16 @@ class ClientsTable extends Table
         $this->setTable('clients');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('ClientsKw', [
+            'foreignKey' => 'client_id',
+        ]);
+        $this->hasMany('Getrecords', [
+            'foreignKey' => 'client_id',
+        ]);
+        $this->hasMany('Results', [
+            'foreignKey' => 'client_id',
+        ]);
     }
 
     /**

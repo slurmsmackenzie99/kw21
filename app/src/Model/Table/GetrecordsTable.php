@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Getrecords Model
  *
+ * @property \App\Model\Table\ClientsTable&\Cake\ORM\Association\BelongsTo $Clients
+ *
  * @method \App\Model\Entity\Getrecord newEmptyEntity()
  * @method \App\Model\Entity\Getrecord newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Getrecord[] newEntities(array $data, array $options = [])
@@ -24,8 +26,6 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Getrecord[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Getrecord[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Getrecord[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class GetrecordsTable extends Table
 {
@@ -43,7 +43,10 @@ class GetrecordsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->addBehavior('Timestamp');
+        $this->belongsTo('Clients', [
+            'foreignKey' => 'client_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -65,17 +68,34 @@ class GetrecordsTable extends Table
             ->notEmptyString('region');
 
         $validator
-            ->requirePresence('kw', 'create')
-            ->notEmptyString('kw');
+            ->scalar('number')
+            ->maxLength('number', 20)
+            ->requirePresence('number', 'create')
+            ->notEmptyString('number');
 
         $validator
-            ->requirePresence('digit', 'create')
-            ->notEmptyString('digit');
+            ->integer('control_number')
+            ->requirePresence('control_number', 'create')
+            ->notEmptyString('control_number');
 
         $validator
-            ->boolean('checked')
-            ->notEmptyString('checked');
+            ->integer('done')
+            ->notEmptyString('done');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn(['client_id'], 'Clients'), ['errorField' => 'client_id']);
+
+        return $rules;
     }
 }

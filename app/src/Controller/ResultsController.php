@@ -102,4 +102,13 @@ class ResultsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function display()
+    {
+
+
+        $results = $this->paginate($this->Results);
+
+        $this->set(compact('results'));
+    }
 }

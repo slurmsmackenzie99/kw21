@@ -12,7 +12,7 @@
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('clientID') ?></th>
+                    <th><?= $this->Paginator->sort('client_id') ?></th>
                     <th><?= $this->Paginator->sort('region') ?></th>
                     <th><?= $this->Paginator->sort('number') ?></th>
                     <th><?= $this->Paginator->sort('control_number') ?></th>
@@ -24,7 +24,7 @@
                 <?php foreach ($getrecords as $getrecord): ?>
                 <tr>
                     <td><?= $this->Number->format($getrecord->id) ?></td>
-                    <td><?= $this->Number->format($getrecord->clientID) ?></td>
+                    <td><?= $getrecord->has('client') ? $this->Html->link($getrecord->client->id, ['controller' => 'Clients', 'action' => 'view', $getrecord->client->id]) : '' ?></td>
                     <td><?= h($getrecord->region) ?></td>
                     <td><?= h($getrecord->number) ?></td>
                     <td><?= $this->Number->format($getrecord->control_number) ?></td>

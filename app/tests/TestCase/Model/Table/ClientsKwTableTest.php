@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\GetrecordsTable;
+use App\Model\Table\ClientsKwTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\GetrecordsTable Test Case
+ * App\Model\Table\ClientsKwTable Test Case
  */
-class GetrecordsTableTest extends TestCase
+class ClientsKwTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\GetrecordsTable
+     * @var \App\Model\Table\ClientsKwTable
      */
-    protected $Getrecords;
+    protected $ClientsKw;
 
     /**
      * Fixtures
@@ -24,9 +24,9 @@ class GetrecordsTableTest extends TestCase
      * @var array
      */
     protected $fixtures = [
-        'app.Getrecords',
+        'app.ClientsKw',
         'app.Clients',
-        'app.CheckedRecords',
+        'app.Getrecords',
     ];
 
     /**
@@ -37,8 +37,8 @@ class GetrecordsTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Getrecords') ? [] : ['className' => GetrecordsTable::class];
-        $this->Getrecords = $this->getTableLocator()->get('Getrecords', $config);
+        $config = $this->getTableLocator()->exists('ClientsKw') ? [] : ['className' => ClientsKwTable::class];
+        $this->ClientsKw = $this->getTableLocator()->get('ClientsKw', $config);
     }
 
     /**
@@ -48,7 +48,7 @@ class GetrecordsTableTest extends TestCase
      */
     public function tearDown(): void
     {
-        unset($this->Getrecords);
+        unset($this->ClientsKw);
 
         parent::tearDown();
     }

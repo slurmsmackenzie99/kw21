@@ -3,15 +3,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\Datasource\ConnectionManager;
-use Cake\Event\EventInterface;
-use Cake\Core\Configure;
 use Cake\Log\Log;
 use Cake\I18n\Time;
 
 
-// use Cake\Log\Engine\BaseLog;
-// use Psr\Log\LoggerInterface;
 
 /**
  * Getrecords Controller
@@ -21,16 +16,6 @@ use Cake\I18n\Time;
  */
 class GetrecordsController extends AppController
 {
-
-    var $sections = [
-        '2.2.1' => 'ownership',
-        '2.2.2' => 'treasury',
-        '2.2.3' => 'self_gov',
-        '2.2.4' => 'company',
-        '2.2.5' => 'individual',
-
-    ];
-
     /**
      * Index method
      *
@@ -38,7 +23,9 @@ class GetrecordsController extends AppController
      */
     public function index()
     {
-        $this->viewBuilder()->setLayout('kw_layout');
+        $this->paginate = [
+            'contain' => ['Clients'],
+        ];
         $getrecords = $this->paginate($this->Getrecords);
 
         $this->set(compact('getrecords'));
@@ -54,7 +41,7 @@ class GetrecordsController extends AppController
     public function view($id = null)
     {
         $getrecord = $this->Getrecords->get($id, [
-            'contain' => [],
+            'contain' => ['Clients'],
         ]);
 
         $this->set(compact('getrecord'));
@@ -77,7 +64,8 @@ class GetrecordsController extends AppController
             }
             $this->Flash->error(__('The getrecord could not be saved. Please, try again.'));
         }
-        $this->set(compact('getrecord'));
+        $clients = $this->Getrecords->Clients->find('list', ['limit' => 200]);
+        $this->set(compact('getrecord', 'clients'));
     }
 
     /**
@@ -101,7 +89,8 @@ class GetrecordsController extends AppController
             }
             $this->Flash->error(__('The getrecord could not be saved. Please, try again.'));
         }
-        $this->set(compact('getrecord'));
+        $clients = $this->Getrecords->Clients->find('list', ['limit' => 200]);
+        $this->set(compact('getrecord', 'clients'));
     }
 
     /**
@@ -120,7 +109,6 @@ class GetrecordsController extends AppController
         } else {
             $this->Flash->error(__('The getrecord could not be deleted. Please, try again.'));
         }
-
 
         return $this->redirect(['action' => 'index']);
     }
@@ -166,15 +154,15 @@ class GetrecordsController extends AppController
             ->values([
                 // id => $idFromJson,
                 'getrecords_id' => $my_id,
-              //  'client_id' => $getrecords->client_id,
+                //  'client_id' => $getrecords->client_id,
                 'last_checked' => Time::now(),
                 'string_dzial_drugi' => $md5,
                 'counter' => 2 //TODO: counter should increase when md5 is different than before
             ])->execute();
 
         //changes done status from 0 to 1 upon completion
-       // $getrecordsTable = $this->getTableLocator()->get('Getrecords');
-      //  $getrecords = $getrecordsTable->get($my_id);
+        // $getrecordsTable = $this->getTableLocator()->get('Getrecords');
+        //  $getrecords = $getrecordsTable->get($my_id);
         $getrecords->done = 1;
         $getrecordsTable->save($getrecords);
 
@@ -262,7 +250,7 @@ class GetrecordsController extends AppController
         $my_id = $jsonData->idrecord;
         echo "<br>";
         echo "my_id data type is: " . gettype($my_id);
-        
+
         $para= $jsonData->serializedData->params;
         $key = "2.2.1";
         $cos = $jsonData->serializedData->$key;
