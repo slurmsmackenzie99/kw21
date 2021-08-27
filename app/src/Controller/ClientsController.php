@@ -118,7 +118,7 @@ class ClientsController extends AppController
 
     public function search()
     {
-        //clients
+        //clientss
         $id = $this->request->getQuery('id');
         if($id){
             $query = $this->Clients->find('all')->where(['id like'=>$id]);
@@ -145,7 +145,7 @@ class ClientsController extends AppController
         //change_kw where getrecords_id = result getrecords.client_id
         $this->loadModel('ChangeKw');
         $changeKw = $this->ChangeKw->find('all')
-            ->where(['getrecords_id like'=> 80]); //retrieve getrecords.id from previous result
+            ->where(['getrecord_id like'=> 80]); //retrieve getrecords.id from previous result
 
         $client = $this->paginate($query);
         $clients = $this->paginate($this->Clients);
