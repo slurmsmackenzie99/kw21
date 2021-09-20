@@ -26,7 +26,6 @@ class GetrecordsTableTest extends TestCase
     protected $fixtures = [
         'app.Getrecords',
         'app.Clients',
-        'app.CheckedRecords',
     ];
 
     /**
@@ -57,6 +56,7 @@ class GetrecordsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\GetrecordsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -67,6 +67,7 @@ class GetrecordsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \App\Model\Table\GetrecordsTable::buildRules()
      */
     public function testBuildRules(): void
     {

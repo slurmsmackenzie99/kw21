@@ -47,6 +47,12 @@ class GetrecordsTable extends Table
             'foreignKey' => 'client_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('ChangeKw', [
+            'foreignKey' => 'getrecord_id',
+        ]);
+        $this->hasMany('ClientsKw', [
+            'foreignKey' => 'getrecord_id',
+        ]);
     }
 
     /**

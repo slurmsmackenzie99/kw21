@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\ChangeKwTable;
+use App\Model\Table\ChangekwTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\ChangeKwTable Test Case
+ * App\Model\Table\ChangekwTable Test Case
  */
-class ChangeKwTableTest extends TestCase
+class ChangekwTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\ChangeKwTable
+     * @var \App\Model\Table\ChangekwTable
      */
-    protected $ChangeKw;
+    protected $Changekw;
 
     /**
      * Fixtures
@@ -24,7 +24,8 @@ class ChangeKwTableTest extends TestCase
      * @var array
      */
     protected $fixtures = [
-        'app.ChangeKw',
+        'app.Changekw',
+        'app.Getrecords',
     ];
 
     /**
@@ -35,8 +36,8 @@ class ChangeKwTableTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('ChangeKw') ? [] : ['className' => ChangeKwTable::class];
-        $this->ChangeKw = $this->getTableLocator()->get('ChangeKw', $config);
+        $config = $this->getTableLocator()->exists('Changekw') ? [] : ['className' => ChangekwTable::class];
+        $this->Changekw = $this->getTableLocator()->get('Changekw', $config);
     }
 
     /**
@@ -46,18 +47,8 @@ class ChangeKwTableTest extends TestCase
      */
     public function tearDown(): void
     {
-        unset($this->ChangeKw);
+        unset($this->Changekw);
 
         parent::tearDown();
-    }
-
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
     }
 }

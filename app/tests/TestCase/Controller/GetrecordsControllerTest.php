@@ -24,7 +24,6 @@ class GetrecordsControllerTest extends TestCase
     protected $fixtures = [
         'app.Getrecords',
         'app.Clients',
-        'app.CheckedRecords',
     ];
 
     /**

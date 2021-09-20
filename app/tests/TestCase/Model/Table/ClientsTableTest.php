@@ -58,6 +58,7 @@ class ClientsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\ClientsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -68,6 +69,7 @@ class ClientsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \App\Model\Table\ClientsTable::buildRules()
      */
     public function testBuildRules(): void
     {

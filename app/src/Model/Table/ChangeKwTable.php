@@ -9,23 +9,25 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * ChangeKw Model
+ * Changekw Model
  *
- * @method \App\Model\Entity\ChangeKw newEmptyEntity()
- * @method \App\Model\Entity\ChangeKw newEntity(array $data, array $options = [])
- * @method \App\Model\Entity\ChangeKw[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\ChangeKw get($primaryKey, $options = [])
- * @method \App\Model\Entity\ChangeKw findOrCreate($search, ?callable $callback = null, $options = [])
- * @method \App\Model\Entity\ChangeKw patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\ChangeKw[] patchEntities(iterable $entities, array $data, array $options = [])
- * @method \App\Model\Entity\ChangeKw|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\ChangeKw saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\ChangeKw[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\ChangeKw[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
- * @method \App\Model\Entity\ChangeKw[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
- * @method \App\Model\Entity\ChangeKw[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ * @property \App\Model\Table\GetrecordsTable&\Cake\ORM\Association\BelongsTo $Getrecords
+ *
+ * @method \App\Model\Entity\Changekw newEmptyEntity()
+ * @method \App\Model\Entity\Changekw newEntity(array $data, array $options = [])
+ * @method \App\Model\Entity\Changekw[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Changekw get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Changekw findOrCreate($search, ?callable $callback = null, $options = [])
+ * @method \App\Model\Entity\Changekw patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Changekw[] patchEntities(iterable $entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Changekw|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Changekw saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Changekw[]|\Cake\Datasource\ResultSetInterface|false saveMany(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Changekw[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Changekw[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
+ * @method \App\Model\Entity\Changekw[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
-class ChangeKwTable extends Table
+class ChangekwTable extends Table
 {
     /**
      * Initialize method
@@ -40,6 +42,10 @@ class ChangeKwTable extends Table
         $this->setTable('change_kw');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Getrecords', [
+            'foreignKey' => 'getrecord_id',
+        ]);
     }
 
     /**
@@ -53,11 +59,6 @@ class ChangeKwTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
-
-        $validator
-            ->integer('ksiega.id')
-            ->requirePresence('ksiega.id', 'create')
-            ->notEmptyString('ksiega.id');
 
         $validator
             ->dateTime('last_checked')
@@ -74,6 +75,26 @@ class ChangeKwTable extends Table
             ->requirePresence('counter', 'create')
             ->notEmptyString('counter');
 
+        $validator
+            ->scalar('md5')
+            ->maxLength('md5', 255)
+            ->requirePresence('md5', 'create')
+            ->notEmptyString('md5');
+
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn(['getrecord_id'], 'Getrecords'), ['errorField' => 'getrecord_id']);
+
+        return $rules;
     }
 }

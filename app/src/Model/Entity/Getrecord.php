@@ -16,7 +16,6 @@ use Cake\ORM\Entity;
  * @property int $done
  *
  * @property \App\Model\Entity\Client $client
- * @property \App\Model\Entity\CheckedRecord[] $checked_records
  */
 class Getrecord extends Entity
 {
@@ -36,6 +35,5 @@ class Getrecord extends Entity
         'control_number' => true,
         'done' => true,
         'client' => true,
-        'checked_records' => true,
     ];
 }

@@ -3,11 +3,23 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\Changekw;
+use App\Model\Entity\Document;
+use Cake\Controller\ComponentRegistry;
+use Cake\Event\EventManagerInterface;
+use Cake\Http\Response;
+use Cake\Http\ServerRequest;
 use Cake\Log\Log;
 use Cake\I18n\Time;
+use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\Datasource\FactoryLocator;
 
-
-
+//use Cake\ORM\ResultSet;
+use League\Csv\Reader;
+use League\Csv\Statement;
+use League\Csv\Writer;
+use League\Csv\TabularDataReader;
+use League\Csv\ResultSet;
 /**
  * Getrecords Controller
  *
@@ -16,6 +28,7 @@ use Cake\I18n\Time;
  */
 class GetrecordsController extends AppController
 {
+    var $clientVar;
     /**
      * Index method
      *
@@ -46,7 +59,118 @@ class GetrecordsController extends AppController
 
         $this->set(compact('getrecord'));
     }
+    public function addcsv()
+    {
+        if($this->request->is('post')) {
+            $postData = $this->request->getData();
+            $file = $this->request->getData('upload_file');
+            // $name = $file->getFilename();
+            $name = '3';
+            $type = $file->getClientMediaType();
+            $targetPath = WWW_ROOT. 'documents'. DS . 'post_document'. DS. $name;
+            if($file->getError() == 0 && $type == 'text/csv'){
+                $file->moveTo($targetPath);
+                $postData['upload_file'] = $name;
+            }
+            //$file = Reader::createFromFileObject($file)->setHeaderOffset(0);
+            debug(gettype($file));
+            debug($file);
+//            $csv = Reader::createFromPath($file)->setHeaderOffset(0);
+//            $csv = Writer::createFromFileObject($file);
+//            $csv = $file;
+            $csv = json_encode($file);
+            debug($csv);
 
+//            foreach($csv as $record){
+//                echo
+//            }
+            $stmt = Statement::create()->offset(1)->limit(20);
+//            $records = $stmt->process($csv);
+//            foreach ($records as $record){
+//                debug($record);
+//            }
+//            debug($csv);
+            die;
+        }
+    }
+    
+    public $csvTableObj;
+    public function addcsvtwo()
+    {
+        $this->clientVar;
+        $csvEntity = $this->csvTableObj->newEmptyEntity();
+        $getrecord = $this->Getrecords->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $csvData = $this->request->getData();
+            $csvSpreadsheet = $this->request->getData('csv_spreadsheet');
+            $clientid = $this->request->getData('id');
+
+            $clientVar = $clientid; //$this?
+
+            $name = $csvSpreadsheet->getClientFilename();
+            $type = $csvSpreadsheet->getClientMediaType();
+            $targetPath = WWW_ROOT . 'documents' . DS . 'post_document' . DS . $clientid . '.csv';
+            $flag = true; //TODO: use it to check the file type
+            if ($flag) {
+                $csvSpreadsheet->moveTo($targetPath);
+                $csvData['csv_spreadsheet'] = $name;
+                $csvData['client_id'] = $clientid;
+            }
+
+            $csv = $this->csvTableObj->patchEntity($csvEntity, $csvData);
+
+            if ($this->csvTableObj->save($csv)) {
+                $this->Flash->success(__('Your csv has been saved.'));
+
+                //return $this->redirect(['action' => 'manipulatecsv']);
+                $this->manipulatecsv($clientid);
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The csv could not be saved. Please, try again.'));
+        }
+        //$clients = $this->Getrecords->Clients->find('list', ['limit' => 200]);
+
+        $this->set(compact('csvEntity', $csvEntity)); //add $csvEntity?
+    }
+
+    public function manipulatecsv($clientid = false)
+    {
+        //list of clients
+        $clients = $this->getTableLocator()->get('Clients');
+//Log::debug($clientid);
+        $getrecordsTable = $this->getTableLocator()->get('Getrecords');
+       // $clientid = $clientVar; //where do i get clientid from? from the form
+        $filename = $clientid . ".csv";
+        $targetPath = WWW_ROOT . 'documents' . DS . 'post_document' . DS . $filename;
+       // $csv =file_get_contents($targetPath);
+       // Log::debug($csv);
+
+        $csv = Reader::createFromPath($targetPath, 'r');
+        //$csv->
+       // Log::debug(print_r($csv,true));
+        //what if there is more than 1?
+        $records = $csv->getRecords();
+        foreach ($records as $offset => $record) {
+            $getrecord = $this->Getrecords->newEmptyEntity();
+            $getrecord->client_id = $clientid; //TODO: client_id is in the filename
+            $getrecord->region = $record[0];
+            $getrecord->number = $record[1];
+            $getrecord->control_number = $record[2];
+
+            $getrecordsTable->save($getrecord);
+
+//            var_dump($record[0]);
+//            var_dump($record[1]);
+//            var_dump($record[2]);
+        }
+        $this->set(compact($clientid));
+
+    }
+    public function displayamount(){
+        $this->viewBuilder()->enableAutoLayout(false);
+        $var = $this->Getrecords->find()->count('geterecords');
+       $this->set('var', $var);
+    }
     /**
      * Add method
      *
@@ -115,6 +239,7 @@ class GetrecordsController extends AppController
 
     public function api()
     {
+        
         $this->viewBuilder()->enableAutoLayout(false);
         $onerecord = $this->Getrecords
             ->find()
@@ -123,48 +248,91 @@ class GetrecordsController extends AppController
         $encoded = json_encode($onerecord);
 
         $getrecords = $this->paginate($this->Getrecords);
-        // $getrecords = $this->Getrecords->get($id);
         $this->set(compact('getrecords', 'encoded', 'onerecord'));
-        // Log::debug($encoded);
         return $this->render('api_html');
     }
 
     public function receiver()
     {
-        Log::debug('should appear once');
-
         $jsonData = $this->request->input('json_decode', true);
 
         //id
         $id_record_from_json = $jsonData["idrecord"];
-        $my_id = json_encode($jsonData["idrecord"]);
+        //$my_id = json_encode($jsonData["idrecord"]);
         $my_id = intval($id_record_from_json);
 
         //serializedData
-        $sd = json_encode($jsonData->serializedData);
-        $md5 = md5($sd);
+        $sds = json_encode($jsonData["serializedData"]);
+        $md5 = md5($sds);
+        $sd = json_decode($sds, true);
+        // $sd = implode(", ", $sd);
 
         $getrecordsTable = $this->getTableLocator()->get('Getrecords');
         $getrecords = $getrecordsTable->get($my_id);
 
-        //query inputs info from extension into change_kw table
-        $table = $this->getTableLocator()->get('ChangeKw');
-        $query = $table->query();
-        $query->insert(['getrecords_id', 'last_checked', 'string_dzial_drugi', 'counter'])
-            ->values([
-                // id => $idFromJson,
-                'getrecords_id' => $my_id,
-                //  'client_id' => $getrecords->client_id,
-                'last_checked' => Time::now(),
-                'string_dzial_drugi' => $md5,
-                'counter' => 2 //TODO: counter should increase when md5 is different than before
-            ])->execute();
+        //ChangeKw
+        $flag = false;
+        $flagTwo = false;
+        $changeKw = $this->getTableLocator()->get('ChangeKw');
+        $query = $changeKw->query();
+        $result = $query->find('all')->where(['getrecord_id' => $my_id])->all();
 
+        if($result->count()!==0){
+            foreach ($result as $hash) {
+            }
+            $global_md5 = $hash->md5; //$global_md5 contains md5 from the last result
+            if($global_md5 == $md5){
+                $flag = false; //if md5s are the same, then string_dzial_drugi is the same, TODO record only time change(?)
+                $flagTwo = true; //update the check date to now, leave rest unchanged
+            } else{
+                $flag = true; //md5s are different, write in the database
+            }
+        }else{
+            $flag = true;
+        }
+
+        //if md5 are different record the current version
+        if($flag){
+            $query->insert(['getrecord_id', 'last_checked', 'string_dzial_drugi', 'counter', 'md5'])
+                ->values([
+                    'getrecord_id' => $my_id,
+                    'last_checked' => Time::now(),
+                    'string_dzial_drugi' => $sds,
+                    'counter' => 2,
+                    'md5' => $md5
+                ])->execute();
+
+            $getrecords->done = 1;
+            $getrecordsTable->save($getrecords);
+        }
+
+        if($flagTwo){
+            
+        }
+
+        /*
+        if($id_located_result && $id_located_result->md5 === $md5){
+            //then nothing changed, dont insert the record
+            echo "Nothing changed in the record";
+        } else {
+            $query->insert(['getrecord_id', 'last_checked', 'string_dzial_drugi', 'counter', 'md5'])
+                ->values([
+                    // id => $idFromJson,
+                    'getrecord_id' => $my_id,
+                    //  'client_id' => $getrecords->client_id,
+                    'last_checked' => Time::now(),
+                    'string_dzial_drugi' => $sds,
+                    'counter' => 2, //TODO: counter should increase when md5 is different than before
+                    'md5' => $md5
+                ])->execute();
+
+            $getrecords->done = 1;
+            $getrecordsTable->save($getrecords);
+        }
+        */
         //changes done status from 0 to 1 upon completion
         // $getrecordsTable = $this->getTableLocator()->get('Getrecords');
         //  $getrecords = $getrecordsTable->get($my_id);
-        $getrecords->done = 1;
-        $getrecordsTable->save($getrecords);
 
         $getrecords = $this->paginate($this->Getrecords);
         $this->set(compact('getrecords'));
@@ -257,5 +425,63 @@ class GetrecordsController extends AppController
         debug($cos);
         echo $jsonData->idrecord;
         die;
+    }
+
+    public function test4() {
+        $str='{"serializedData":{"params":{"region":"WA1G","numer":"00010199","numerKontrolny":"2"},"2.2.1":[{"numerUdzialu":"1","wielkoscUdzialu":"1 / 1","rodzajWspolnosci":"---"},{"numerUdzialu":"2","wielkoscUdzialu":"1 / 1","rodzajWspolnosci":"---"}],"2.2.2":[],"2.2.3":[],"2.2.4":[],"2.2.5":[{"listaWskazan":"1","imiePierwsze":"MARIA","imieDrugie":"---","nazwisko":"BORDZI\u0141OWSKA","drugiCzlonNazwisko":"---","imieOjca":"W\u0141ADYS\u0141AW","imieMatki":"APOLONIA","pesel":"---"},{"listaWskazan":"2","imiePierwsze":"KRZYSZTOF","imieDrugie":"PAWE\u0141","nazwisko":"POGORZELSKI","drugiCzlonNazwisko":"---","imieOjca":"---","imieMatki":"---","pesel":"85071719370"}]},"idrecord":"80"}';
+        $jsonData = json_decode($str);
+        $sd = json_encode($jsonData->serializedData);
+
+        //get idrecord
+        //see if idrecord present in the table
+        //if present compare md5
+
+        $md5 = md5($sd);
+        $global_md5 = '';
+        $my_id = $jsonData->idrecord;
+
+        $changeKw = $this->getTableLocator()->get('ChangeKw');
+        $query = $changeKw->query();
+        $result = $query->find('all')->where(['getrecord_id' => $my_id])->all();
+
+        if($result->count()!==0){
+            foreach ($result as $hash) {
+            }
+            $global_md5 = $hash->md5;
+            }else{
+            echo "No matching record found";
+        }
+        debug($global_md5);
+        debug($md5);
+        if($md5 !== $global_md5){
+            //write into file
+        } else {
+            echo "MD5s are the same";
+        }
+
+
+//        debug($result[0]->id);
+//        $previous_md5 = $result['md5'];
+//        debug($previous_md5);
+        debug($result);
+//        echo $result;
+        die;
+
+//        $query = $changeKw->query();
+//        $query = $changeKw->find('all')->where([
+//            'getrecord_id' => 85
+//        ])->execute();
+//        echo $query;
+//        debug($query);
+
+        $para= $jsonData->serializedData->params;
+        $key = "2.2.1";
+        $cos = $jsonData->serializedData->$key;
+        debug($cos);
+        $idr = $jsonData->idrecord;
+        echo $jsonData->idrecord;
+    }
+    public function script(){
+        
     }
 }

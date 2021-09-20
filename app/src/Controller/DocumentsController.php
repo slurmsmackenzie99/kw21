@@ -27,9 +27,6 @@ class DocumentsController extends AppController
         $this->usersTableObj = FactoryLocator::get('Table')->get('Users');
     }
 
-    public function addtext(){
-       //TODO
-    }
     //post_document, id and user_id need to be exported together
     public function add(){
         $document = $this->Documents->newEmptyEntity();
@@ -146,8 +143,6 @@ class DocumentsController extends AppController
     }
 
     public function openandread($id= null){
-        //TODO: make path be able to change to fit the user file name
-        //TODO after upload assign userID as the filename
         $path = '../webroot/documents/post_document/input.csv';
         $row = 1;
         if (($handle = fopen($path, "r")) !== FALSE) {
@@ -158,13 +153,12 @@ class DocumentsController extends AppController
                 for ($c=0; $c < $num; $c++) {
                         echo $data[$c] . "<br>";
                         if($c % 3 == 0){
-                            //TODO split in threes
+
                         }
-                    
+
                 }
             }
             fclose($handle);
-            //TODO displayed .csv fields are entered into the ksiega
         }
     }
 }

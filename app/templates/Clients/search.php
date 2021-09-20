@@ -19,7 +19,7 @@ echo $this->Form->end();
 </tr>
 </thead>
 <tbody>
-<?php foreach ($client as $client): ?>
+<?php foreach ($clients as $client): ?>
     <tr>
         <td><?= $this->Number->format($client->id) ?></td>
         <td><?= h($client->username) ?></td>
@@ -78,17 +78,19 @@ echo $this->Form->end();
             <th><?= $this->Paginator->sort('last_checked') ?></th>
             <th><?= $this->Paginator->sort('string_dzial_drugi') ?></th>
             <th><?= $this->Paginator->sort('counter') ?></th>
+            <th><?= $this->Paginator->sort('md5') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($changeKw as $changeKw): ?>
+        <?php foreach ($changeKws as $changeKw): ?>
             <tr>
                 <td><?= $this->Number->format($changeKw->id) ?></td>
-                <td><?= $this->Number->format($changeKw->getrecords_id) ?></td>
+                <td><?= $this->Number->format($changeKw->getrecord_id) ?></td>
                 <td><?= h($changeKw->last_checked) ?></td>
                 <td><?= h($changeKw->string_dzial_drugi) ?></td>
                 <td><?= $this->Number->format($changeKw->counter) ?></td>
+                <td><?= h($changeKw->md5) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $changeKw->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $changeKw->id]) ?>

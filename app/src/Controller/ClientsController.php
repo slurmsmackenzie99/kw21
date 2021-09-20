@@ -121,37 +121,49 @@ class ClientsController extends AppController
         //clients
         $id = $this->request->getQuery('id');
         if($id){
-            $query = $this->Clients->find('all')->where(['id like'=>$id]);
-        }else{
-            $query = $this->Clients;
-        }
+            $query = $this->Clients->find('all')->contain([
+                    'Getrecords'=>['ClientsKw']
+                ])->where(['id like' => $id]);
+            } else {
+                $query = $this->Clients;
+            }
+        /*
+            $query = $this->Clients->find('all')
+                ->where(['id like'=>$id]);
+            }else{
+                $query = $this->Clients;
+            }
+        */
 
         //getrecords
         $this->loadModel('Getrecords');
+        $changeKws=[];
         if($id){
             $queryTwo = $this->Getrecords->find('all')
             ->where(['client_id like'=> $id]); //save getrecord.id and pass it to change_kw query
+
+            $this->loadModel('ChangeKw');
+
+            $changeKws = $this->ChangeKw->find('all')->contain([
+                    'Getrecords'=>['Clients']
+                ]
+            )
+                ->where(['Clients.id'=> $id ]); //retrieve getrecords.id from previous result
+
+
         }else{
             $queryTwo = $this->Getrecords;
         }
 
 
-        if($id){
-            debug($queryTwo);
-        }
-        //what if more than 1?
-//        $queryTwo->Getrecords->id;
-
         //change_kw where getrecords_id = result getrecords.client_id
-        $this->loadModel('ChangeKw');
-        $changeKw = $this->ChangeKw->find('all')
-            ->where(['getrecords_id like'=> 80]); //retrieve getrecords.id from previous result
+
 
         $client = $this->paginate($query);
         $clients = $this->paginate($this->Clients);
 
         $getrecord = $this->paginate($queryTwo);
 
-        $this->set(compact('client','clients', 'changeKw', 'getrecord'));
+        $this->set(compact('client','clients', 'changeKws', 'getrecord'));
     }
 }

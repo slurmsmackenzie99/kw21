@@ -16,7 +16,7 @@ declare(strict_types=1);
  */
 
 /*
-*CORS error workaround 
+*CORS error workaround
 *Soultion from cakePhp forum
 * remove in production
 */
@@ -230,3 +230,4 @@ TypeFactory::map('time', StringType::class);
 //Inflector::rules('plural', ['/^(inflect)or$/i' => '\1ables']);
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
+Configure::write('DebugKit.forceEnable', true);

@@ -6,15 +6,18 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * ChangeKw Entity
+ * Changekw Entity
  *
  * @property int $id
- * @property int $ksiega.id
+ * @property int|null $getrecord_id
  * @property \Cake\I18n\FrozenTime $last_checked
  * @property string $string_dzial_drugi
  * @property int $counter
+ * @property string $md5
+ *
+ * @property \App\Model\Entity\Getrecord $getrecord
  */
-class ChangeKw extends Entity
+class Changekw extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -26,9 +29,11 @@ class ChangeKw extends Entity
      * @var array
      */
     protected $_accessible = [
-        'ksiega.id' => true,
+        'getrecord_id' => true,
         'last_checked' => true,
         'string_dzial_drugi' => true,
         'counter' => true,
+        'md5' => true,
+        'getrecord' => true,
     ];
 }

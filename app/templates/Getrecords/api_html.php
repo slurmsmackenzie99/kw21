@@ -1,2 +1,1 @@
-<?php
- echo json_encode($getrecords); ?>
+<?= json_encode($getrecords); ?>

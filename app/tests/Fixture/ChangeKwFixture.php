@@ -6,9 +6,9 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * ChangeKwFixture
+ * ChangekwFixture
  */
-class ChangeKwFixture extends TestFixture
+class ChangekwFixture extends TestFixture
 {
     /**
      * Table name
@@ -24,17 +24,17 @@ class ChangeKwFixture extends TestFixture
     // phpcs:disable
     public $fields = [
         'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'ksiega.id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'getrecord_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'last_checked' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => null, 'comment' => ''],
         'string_dzial_drugi' => ['type' => 'text', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         'counter' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'md5' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         '_indexes' => [
-            'ksiega.id' => ['type' => 'index', 'columns' => ['ksiega.id'], 'length' => []],
+            'getrecords_id' => ['type' => 'index', 'columns' => ['getrecord_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'change_kw_ibfk_2' => ['type' => 'foreign', 'columns' => ['ksiega.id'], 'references' => ['ksiega', 'idKsiega'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'change_kw_ibfk_1' => ['type' => 'foreign', 'columns' => ['id'], 'references' => ['ksiega', 'idKsiega'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'change_kw_ibfk_1' => ['type' => 'foreign', 'columns' => ['getrecord_id'], 'references' => ['getrecords', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -52,10 +52,11 @@ class ChangeKwFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'ksiega.id' => 1,
-                'last_checked' => '2021-08-16 11:26:32',
+                'getrecord_id' => 1,
+                'last_checked' => '2021-08-30 09:20:06',
                 'string_dzial_drugi' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'counter' => 1,
+                'md5' => 'Lorem ipsum dolor sit amet',
             ],
         ];
         parent::init();
