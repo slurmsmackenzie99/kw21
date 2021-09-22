@@ -55,6 +55,7 @@ class UsersTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
+     * @uses \App\Model\Table\UsersTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -65,6 +66,7 @@ class UsersTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
+     * @uses \App\Model\Table\UsersTable::buildRules()
      */
     public function testBuildRules(): void
     {

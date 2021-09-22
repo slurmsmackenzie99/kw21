@@ -29,6 +29,7 @@ class UsersControllerTest extends TestCase
      * Test index method
      *
      * @return void
+     * @uses \App\Controller\UsersController::index()
      */
     public function testIndex(): void
     {
@@ -39,6 +40,7 @@ class UsersControllerTest extends TestCase
      * Test view method
      *
      * @return void
+     * @uses \App\Controller\UsersController::view()
      */
     public function testView(): void
     {
@@ -49,6 +51,7 @@ class UsersControllerTest extends TestCase
      * Test add method
      *
      * @return void
+     * @uses \App\Controller\UsersController::add()
      */
     public function testAdd(): void
     {
@@ -59,6 +62,7 @@ class UsersControllerTest extends TestCase
      * Test edit method
      *
      * @return void
+     * @uses \App\Controller\UsersController::edit()
      */
     public function testEdit(): void
     {
@@ -69,6 +73,7 @@ class UsersControllerTest extends TestCase
      * Test delete method
      *
      * @return void
+     * @uses \App\Controller\UsersController::delete()
      */
     public function testDelete(): void
     {

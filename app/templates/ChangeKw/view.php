@@ -19,12 +19,16 @@
             <h3><?= h($changeKw->id) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($changeKw->id) ?></td>
+                    <th><?= __('Getrecord') ?></th>
+                    <td><?= $changeKw->has('getrecord') ? $this->Html->link($changeKw->getrecord->id, ['controller' => 'Getrecords', 'action' => 'view', $changeKw->getrecord->id]) : '' ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Ksiega.id') ?></th>
-                    <td><?= $this->Number->format($changeKw->ksiega.id) ?></td>
+                    <th><?= __('Md5') ?></th>
+                    <td><?= h($changeKw->md5) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Id') ?></th>
+                    <td><?= $this->Number->format($changeKw->id) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Counter') ?></th>

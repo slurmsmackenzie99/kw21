@@ -17,6 +17,7 @@
                     <th><?= $this->Paginator->sort('number') ?></th>
                     <th><?= $this->Paginator->sort('control_number') ?></th>
                     <th><?= $this->Paginator->sort('done') ?></th>
+                    <th><?= $this->Paginator->sort('created') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>

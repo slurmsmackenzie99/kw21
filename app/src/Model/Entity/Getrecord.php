@@ -14,8 +14,11 @@ use Cake\ORM\Entity;
  * @property string $number
  * @property int $control_number
  * @property int $done
+ * @property \Cake\I18n\FrozenTime $created
  *
  * @property \App\Model\Entity\Client $client
+ * @property \App\Model\Entity\Changekw[] $change_kw
+ * @property \App\Model\Entity\ClientsKw[] $clients_kw
  */
 class Getrecord extends Entity
 {
@@ -34,6 +37,9 @@ class Getrecord extends Entity
         'number' => true,
         'control_number' => true,
         'done' => true,
+        'created' => true,
         'client' => true,
+        'change_kw' => true,
+        'clients_kw' => true,
     ];
 }

@@ -1,3 +1,3 @@
 <h1>
-    <?php echo $var; ?>
+    <?= $var ?>
 </h1>

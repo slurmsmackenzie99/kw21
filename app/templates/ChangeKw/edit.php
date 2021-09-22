@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\ChangeKw $changeKw
+ * @var string[]|\Cake\Collection\CollectionInterface $getrecords
  */
 ?>
 <div class="row">
@@ -22,10 +23,11 @@
             <fieldset>
                 <legend><?= __('Edit Change Kw') ?></legend>
                 <?php
-                    echo $this->Form->control('ksiega.id');
+                    echo $this->Form->control('getrecord_id', ['options' => $getrecords, 'empty' => true]);
                     echo $this->Form->control('last_checked');
                     echo $this->Form->control('string_dzial_drugi');
                     echo $this->Form->control('counter');
+                    echo $this->Form->control('md5');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

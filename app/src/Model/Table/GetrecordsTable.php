@@ -12,6 +12,8 @@ use Cake\Validation\Validator;
  * Getrecords Model
  *
  * @property \App\Model\Table\ClientsTable&\Cake\ORM\Association\BelongsTo $Clients
+ * @property \App\Model\Table\ChangekwTable&\Cake\ORM\Association\HasMany $ChangeKw
+ * @property \App\Model\Table\ClientsKwTable&\Cake\ORM\Association\HasMany $ClientsKw
  *
  * @method \App\Model\Entity\Getrecord newEmptyEntity()
  * @method \App\Model\Entity\Getrecord newEntity(array $data, array $options = [])
@@ -26,6 +28,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Getrecord[]|\Cake\Datasource\ResultSetInterface saveManyOrFail(iterable $entities, $options = [])
  * @method \App\Model\Entity\Getrecord[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\Getrecord[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class GetrecordsTable extends Table
 {
@@ -42,6 +46,8 @@ class GetrecordsTable extends Table
         $this->setTable('getrecords');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Clients', [
             'foreignKey' => 'client_id',
