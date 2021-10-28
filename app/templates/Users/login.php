@@ -1,15 +1,13 @@
 <!-- in /templates/Users/login.php -->
 <div class="users form">
     <?= $this->Flash->render() ?>
-    <h3>Login</h3>
+    <h3>Zaloguj się</h3>
     <?= $this->Form->create() ?>
     <fieldset>
-        <legend><?= __('Please enter your email and password') ?></legend>
-        <?= $this->Form->control('email', ['required' => true]) ?>
-        <?= $this->Form->control('password', ['required' => true]) ?>
+        <legend><?= __('Wpisz dane logowania') ?></legend>
+        <?= $this->Form->control('email', ['required' => true, 'label' => 'Imię']) ?>
+        <?= $this->Form->control('password', ['required' => true, 'label' => 'Hasło']) ?>
     </fieldset>
-    <?= $this->Form->submit(__('Login')); ?>
+    <?= $this->Form->submit(__('Zaloguj się')); ?>
     <?= $this->Form->end() ?>
-
-    <?= $this->Html->link("Add User", ['action' => 'add']) ?>
 </div>

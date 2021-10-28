@@ -10,6 +10,10 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $username
+ * @property string $client_email
+ * @property string $last_name
+ * @property int $telephone_number
+ * @property string $company_name
  *
  * @property \App\Model\Entity\ClientsKw[] $clients_kw
  * @property \App\Model\Entity\Getrecord[] $getrecords
@@ -28,6 +32,10 @@ class Client extends Entity
      */
     protected $_accessible = [
         'username' => true,
+        'client_email' => true,
+        'last_name' => true,
+        'telephone_number' => true,
+        'company_name' => true,
         'clients_kw' => true,
         'getrecords' => true,
         'results' => true,

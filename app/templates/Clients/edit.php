@@ -23,6 +23,10 @@
                 <legend><?= __('Edit Client') ?></legend>
                 <?php
                     echo $this->Form->control('username');
+                    echo $this->Form->control('client_email');
+                    echo $this->Form->control('last_name');
+                    echo $this->Form->control('telephone_number');
+                    echo $this->Form->control('company_name');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

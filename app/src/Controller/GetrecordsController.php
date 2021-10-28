@@ -26,6 +26,7 @@ use League\Csv\ResultSet;
  * Getrecords Controller
  *
  * @property \App\Model\Table\GetrecordsTable $Getrecords
+ * @property \App\Model\Table\ClientsTable $Clients
  * @method \App\Model\Entity\Getrecord[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class GetrecordsController extends AppController
@@ -168,7 +169,27 @@ class GetrecordsController extends AppController
         }
         //$clients = $this->Getrecords->Clients->find('list', ['limit' => 200]);
 
-        $this->set(compact('csvEntity', $csvEntity)); //add $csvEntity?
+//        $this->set(compact('csvEntity', $csvEntity, 'clients', $clientsTest)); //add $csvEntity?
+        //$clients = $this->getTableLocator()->get('Clients');
+        //$clients = FactoryLocator::get('Table')->get('Clients');
+        //$clients = $this->loadModel('Clients');
+        //debug($this->Clients);
+//        $clients = $this->Clients->find('list')->all();
+        $clients = $this->loadModel('Clients');
+        $clientsKeyValue = $this->Clients->find('list', [
+            'keyField' => 'id',
+            'valueField' => 'client_email' //change to email
+        ])->select(['id', 'client_email'])->all()->toArray();
+
+        //debug($keyValue);
+        //$this->set(compact('csvEntity', $csvEntity)); //clients, $this->$clients->find('list')->all()
+        $this->set(compact('csvEntity', 'clients', 'clientsKeyValue')); //clients, $this->$clients->find('list')->all()
+//        $this->set($clients);
+    }
+
+    public function generatepdf()
+    {
+        //used to generate pdf from the records
     }
 
     public function manipulatecsv($clientid = false)
@@ -226,7 +247,7 @@ class GetrecordsController extends AppController
     public function displayamount(){
         $this->viewBuilder()->enableAutoLayout(false);
 
-        $var = $this->Getrecords->find()->count('geterecords');
+        $var = $this->Getrecords->find()->count('getrecords');
 //        echo $var;
         $this->set('var', $var);
     }
@@ -376,7 +397,7 @@ class GetrecordsController extends AppController
                 ->where(['getrecord_id' => $my_id])
                 ->execute();
                 $getrecords->done = 1;
-                $getrecordsTable->save($getrecords);    
+                $getrecordsTable->save($getrecords);
         }
 
         echo '{ok:"ok"}';

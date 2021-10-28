@@ -32,6 +32,7 @@ class ClientsControllerTest extends TestCase
      * Test index method
      *
      * @return void
+     * @uses \App\Controller\ClientsController::index()
      */
     public function testIndex(): void
     {
@@ -42,6 +43,7 @@ class ClientsControllerTest extends TestCase
      * Test view method
      *
      * @return void
+     * @uses \App\Controller\ClientsController::view()
      */
     public function testView(): void
     {
@@ -52,6 +54,7 @@ class ClientsControllerTest extends TestCase
      * Test add method
      *
      * @return void
+     * @uses \App\Controller\ClientsController::add()
      */
     public function testAdd(): void
     {
@@ -62,6 +65,7 @@ class ClientsControllerTest extends TestCase
      * Test edit method
      *
      * @return void
+     * @uses \App\Controller\ClientsController::edit()
      */
     public function testEdit(): void
     {
@@ -72,6 +76,7 @@ class ClientsControllerTest extends TestCase
      * Test delete method
      *
      * @return void
+     * @uses \App\Controller\ClientsController::delete()
      */
     public function testDelete(): void
     {

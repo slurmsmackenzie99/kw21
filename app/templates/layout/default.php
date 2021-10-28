@@ -14,7 +14,7 @@
  * @var \App\View\AppView $this
  */
 
-$cakeDescription = 'Ksiegi Wieczyste';
+$cakeDescription = 'Monitoring KW';
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,8 @@ $cakeDescription = 'Ksiegi Wieczyste';
     </title>
     <?= $this->Html->meta('favicon.ico') ?>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet"> -->
 
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
 
@@ -40,10 +41,10 @@ $cakeDescription = 'Ksiegi Wieczyste';
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="<?= $this->Url->build('/') ?>"><span>Automatyczna przeglądarka Księgi Wieczystej</span></a>
+            <a href="<?= $this->Url->build('/') ?>"><span>Monitoring Ksiąg Wieczystych - panel administratora</span></a>
         </div>
         <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://przegladarka-ekw.ms.gov.pl/eukw_prz/KsiegiWieczyste/wyszukiwanieKW?komunikaty=true&kontakt=true&okienkoSerwisowe=false">Oficjalna strona EUKW</a>
+            <a target="_blank" rel="noopener" href="https://kw21.g12.pw/">Powrót do strony głównej</a>
         </div>
     </nav>
     <main class="main">

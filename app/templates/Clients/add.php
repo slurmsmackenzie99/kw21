@@ -7,20 +7,32 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Clients'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('Lista klientów'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
         <div class="clients form content">
             <?= $this->Form->create($client) ?>
             <fieldset>
-                <legend><?= __('Add Client') ?></legend>
-                <?php
-                    echo $this->Form->control('username');
-                ?>
+                <h4>Dodaj klienta</h4>
+                    <?=  $this->Form->control('username', [
+                        'label' => 'Imię'
+                    ]); ?>
+                    <?=  $this->Form->control('last_name', [
+                        'label' => 'Nazwisko'
+                    ]); ?>
+                    <?=  $this->Form->control('client_email', [
+                        'label' => 'E-mail'
+                    ]); ?>
+                    <?=  $this->Form->control('telephone_number', [
+                        'label' => 'Numer telefonu'
+                    ]); ?>
+                    <?=  $this->Form->control('company_name', [
+                        'label' => 'Nazwa firmy'
+                    ]); ?>
+                
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Dodaj')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

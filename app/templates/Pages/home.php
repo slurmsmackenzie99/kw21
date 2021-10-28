@@ -47,7 +47,7 @@ if (!Configure::read('debug')) :
     );
 endif;
 
-$cakeDescription = 'Ksiegi Wieczyste';
+$cakeDescription = 'Monitoring KW';
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,79 +78,70 @@ $cakeDescription = 'Ksiegi Wieczyste';
                     width="350" />
             </a>
             <h1>
-                Księgi Wieczyste
+                Monitoring KW - panel administratora
             </h1>
         </div>
     </header>
     <main class="main">
         <style>
-        a.button {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            font-weight: 400;
-            color: #191970;
-            font: bold 12px Helvetica;
-            text-decoration: none;
-            padding: 7px 25px;
-            position: relative;
-            display: inline-block;
-            text-shadow: 0 1px 0 #fff;
-            -webkit-transition: border-color .218s;
-            -moz-transition: border .218s;
-            -o-transition: border-color .218s;
-            transition: border-color .218s;
-            background: #191970;
-            background: -webkit-gradient(linear, 0% 40%, 0% 70%, from(#F5F5F5), to(#F1F1F1));
-            background: -moz-linear-gradient(linear, 0% 40%, 0% 70%, from(#F5F5F5), to(#F1F1F1));
-            border: solid 1px #dcdcdc;
-            border-radius: 2px;
-            -webkit-border-radius: 2px;
-            -moz-border-radius: 2px;
-            margin-right: 20px;
-            cursor: pointer;
-        }
-
-        a.button:hover {
-            color: #333;
-            border-color: #999;
-            -moz-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
-            -webkit-box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-        }
-
-        a.button:active {
-            color: #000;
-            border-color: #444;
-        }
+            a.button{
+             display:inline-block;
+             padding:0.3em 1.2em;
+             margin:0 0.3em 0.3em 0;
+             border-radius:2em;
+             box-sizing: border-box;
+             text-decoration:none;
+             font-family:'Roboto',sans-serif;
+             font-weight:300;
+             color:#FFFFFF;
+             background-color:#4eb5f1;
+             text-align:center;
+             transition: all 0.2s;
+            }
+            a.button:hover{
+             background-color:#4095c6;
+            }
+            @media all and (max-width:30em){
+             a.button{
+              display:block;
+              margin:0.2em auto;
+             }
+            }
         </style>
         <div class="container">
             <div class="content">
                 <div class="row">
                     <div class="column">
                         <div class="column">
+                            <td align="center">
+                                <?php echo $this->Html->link("Dodaj klienta", array('controller' => 'clients','action'=> 'add'), array( 'class' => 'button'))?>
                             <?php echo $this->Html->link("Dodaj CSV klienta", array('controller' => 'getrecords','action'=> 'addcsvtwo'), array( 'class' => 'button'))?>
-                            <?php echo $this->Html->link("Dodaj klienta", array('controller' => 'clients','action'=> 'add'), array( 'class' => 'button'))?>
-                            <?php echo $this->Html->link("Sprawdź zmiany własności", array('controller' => 'changeKw','action'=> 'index'), array( 'class' => 'button'))?>
+                            <?php //echo $this->Html->link("Sprawdź zmiany własności", array('controller' => 'changeKw','action'=> 'index'), array( 'class' => 'button'))?>
                             <?php echo $this->Html->link("Zobacz wpisy ksiąg wieczystych", array('controller' => 'getrecords','action'=> 'index'), array( 'class' => 'button'))?>
-                            <div class="column">
-                                <div style="height:200px; width:100%; clear:both;"></div>
-                                <div class="message default text-center">
-                                    <small>Please be aware that this page will not be shown if you turn off debug mode
-                                        unless you replace templates/Pages/home.php with your own version.</small>
-                                </div>
-                                <!-- <div id="url-rewriting-warning" class="alert url-rewriting">
-                            <ul>
-                                <li class="bullet problem">
-                                    URL rewriting is not properly configured on your server.<br />
-                                    1) <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/en/installation.html#url-rewriting">Help me configure it</a><br />
-                                    2) <a target="_blank" rel="noopener" href="https://book.cakephp.org/4/en/development/configuration.html#general-configuration">I don't / can't use URL rewriting</a>
-                                </li>
-                            </ul>
-                        </div> -->
-                                <?php Debugger::checkSecurityKeys(); ?>
-                            </div>
+                            <?php echo $this->Html->link("Wygeneruj raport", array('controller' => 'changeKw','action'=> 'generatereport'), array( 'class' => 'button'))?>
+                            </td>
                         </div>
-                        <hr>
-                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="content">
+                <div class="row">
+                    <div class="column">
+                        <div class="column">
+                            <td align="center">
+                            Instrukcje użycia:
+                            <br>   
+                            <ol>
+                                <li>Dodaj nowego klienta</li>
+                                <li>Dodaj plik .csv z księgami, które klient chce obserwować (z nieoznaczonymi tabelami w kolejności: 'Region', 'Numer księgi', 'Cyfra kontrolna')</li>
+                                <li>Wygeneruj raport gdy sprawdzanie ksiąg się zakończy</li>
+                            </ol>
+  
+                            </td>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@ class DocumentsController extends AppController
             return mb_convert_encoding(pack('H*', $match[1]), 'UTF-8', 'UTF-16BE');
         }, $var);
         debug($var); die;
-
+  
 
         $document = $this->Documents->newEmptyEntity();
         $documentEnt = $this->Documents->newEmptyEntity();

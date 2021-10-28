@@ -16,15 +16,31 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="clients view content">
-            <h3><?= h($client->id) ?></h3>
+            <h3><?= h($client->username) ?></h3>
             <table>
                 <tr>
                     <th><?= __('Username') ?></th>
                     <td><?= h($client->username) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Client Email') ?></th>
+                    <td><?= h($client->client_email) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Last Name') ?></th>
+                    <td><?= h($client->last_name) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Company Name') ?></th>
+                    <td><?= h($client->company_name) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($client->id) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Telephone Number') ?></th>
+                    <td><?= $this->Number->format($client->telephone_number) ?></td>
                 </tr>
             </table>
             <div class="related">
@@ -35,14 +51,14 @@
                         <tr>
                             <th><?= __('Id') ?></th>
                             <th><?= __('Client Id') ?></th>
-                            <th><?= __('Getrecords Id') ?></th>
+                            <th><?= __('Getrecord Id') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($client->clients_kw as $clientsKw) : ?>
                         <tr>
                             <td><?= h($clientsKw->id) ?></td>
                             <td><?= h($clientsKw->client_id) ?></td>
-                            <td><?= h($clientsKw->getrecords_id) ?></td>
+                            <td><?= h($clientsKw->getrecord_id) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'ClientsKw', 'action' => 'view', $clientsKw->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'ClientsKw', 'action' => 'edit', $clientsKw->id]) ?>
@@ -66,6 +82,7 @@
                             <th><?= __('Number') ?></th>
                             <th><?= __('Control Number') ?></th>
                             <th><?= __('Done') ?></th>
+                            <th><?= __('Created') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($client->getrecords as $getrecords) : ?>
@@ -76,6 +93,7 @@
                             <td><?= h($getrecords->number) ?></td>
                             <td><?= h($getrecords->control_number) ?></td>
                             <td><?= h($getrecords->done) ?></td>
+                            <td><?= h($getrecords->created) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'Getrecords', 'action' => 'view', $getrecords->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'Getrecords', 'action' => 'edit', $getrecords->id]) ?>

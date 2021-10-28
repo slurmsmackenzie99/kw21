@@ -42,10 +42,13 @@ class ClientsTable extends Table
         parent::initialize($config);
 
         $this->setTable('clients');
-        $this->setDisplayField('id');
+        $this->setDisplayField('username');
         $this->setPrimaryKey('id');
 
         $this->hasMany('ClientsKw', [
+            'foreignKey' => 'client_id',
+        ]);
+        $this->hasMany('Csv', [
             'foreignKey' => 'client_id',
         ]);
         $this->hasMany('Getrecords', [
@@ -73,6 +76,29 @@ class ClientsTable extends Table
             ->maxLength('username', 20)
             ->requirePresence('username', 'create')
             ->notEmptyString('username');
+
+        $validator
+            ->scalar('client_email')
+            ->maxLength('client_email', 20)
+            ->requirePresence('client_email', 'create')
+            ->notEmptyString('client_email');
+
+        $validator
+            ->scalar('last_name')
+            ->maxLength('last_name', 20)
+            ->requirePresence('last_name', 'create')
+            ->notEmptyString('last_name');
+
+        $validator
+            ->integer('telephone_number')
+            ->requirePresence('telephone_number', 'create')
+            ->notEmptyString('telephone_number');
+
+        $validator
+            ->scalar('company_name')
+            ->maxLength('company_name', 20)
+            ->requirePresence('company_name', 'create')
+            ->notEmptyString('company_name');
 
         return $validator;
     }

@@ -11,11 +11,6 @@ namespace App\Controller;
  */
 class ClientsController extends AppController
 {
-    public function initialize(): void
-    {
-        parent::initialize();
-        $this->loadComponent('Paginator');
-    }
     /**
      * Index method
      *
@@ -23,12 +18,6 @@ class ClientsController extends AppController
      */
     public function index()
     {
-//        if($this->request){
-//
-//           $req= $this->Articles->find('all')->where(
-//               ['published' => true]
-//           );
-//        }
         $clients = $this->paginate($this->Clients);
 
         $this->set(compact('clients'));
@@ -47,8 +36,6 @@ class ClientsController extends AppController
             'contain' => ['ClientsKw', 'Getrecords', 'Results'],
         ]);
 
-        $clients = $this->Clients->query();
-
         $this->set(compact('client'));
     }
 
@@ -63,11 +50,11 @@ class ClientsController extends AppController
         if ($this->request->is('post')) {
             $client = $this->Clients->patchEntity($client, $this->request->getData());
             if ($this->Clients->save($client)) {
-                $this->Flash->success(__('The client has been saved.'));
+                $this->Flash->success(__('Klient został zapisany'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The client could not be saved. Please, try again.'));
+            $this->Flash->error(__('Błąd. Klient nie może zostać zapisany'));
         }
         $this->set(compact('client'));
     }
@@ -114,56 +101,5 @@ class ClientsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function search()
-    {
-        //clients
-        $id = $this->request->getQuery('id');
-        if($id){
-            $query = $this->Clients->find('all')->contain([
-                    'Getrecords'=>['ClientsKw']
-                ])->where(['id like' => $id]);
-            } else {
-                $query = $this->Clients;
-            }
-        /*
-            $query = $this->Clients->find('all')
-                ->where(['id like'=>$id]);
-            }else{
-                $query = $this->Clients;
-            }
-        */
-
-        //getrecords
-        $this->loadModel('Getrecords');
-        $changeKws=[];
-        if($id){
-            $queryTwo = $this->Getrecords->find('all')
-            ->where(['client_id like'=> $id]); //save getrecord.id and pass it to change_kw query
-
-            $this->loadModel('ChangeKw');
-
-            $changeKws = $this->ChangeKw->find('all')->contain([
-                    'Getrecords'=>['Clients']
-                ]
-            )
-                ->where(['Clients.id'=> $id ]); //retrieve getrecords.id from previous result
-
-
-        }else{
-            $queryTwo = $this->Getrecords;
-        }
-
-
-        //change_kw where getrecords_id = result getrecords.client_id
-
-
-        $client = $this->paginate($query);
-        $clients = $this->paginate($this->Clients);
-
-        $getrecord = $this->paginate($queryTwo);
-
-        $this->set(compact('client','clients', 'changeKws', 'getrecord'));
     }
 }
