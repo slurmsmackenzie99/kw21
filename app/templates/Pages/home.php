@@ -73,7 +73,7 @@ $cakeDescription = 'Monitoring KW';
 <body>
     <header>
         <div class="container text-center">
-            <a href="https://cakephp.org/" target="_blank" rel="noopener">
+            <a href="https://kw21.g12.pw//" target="_blank" rel="noopener">
                 <img alt="Logo" src="https://www.svgrepo.com/show/343871/select-product-ecommerce-item.svg"
                     width="350" />
             </a>
@@ -118,7 +118,7 @@ $cakeDescription = 'Monitoring KW';
                             <?php echo $this->Html->link("Dodaj CSV klienta", array('controller' => 'getrecords','action'=> 'addcsvtwo'), array( 'class' => 'button'))?>
                             <?php //echo $this->Html->link("Sprawdź zmiany własności", array('controller' => 'changeKw','action'=> 'index'), array( 'class' => 'button'))?>
                             <?php echo $this->Html->link("Zobacz wpisy ksiąg wieczystych", array('controller' => 'getrecords','action'=> 'index'), array( 'class' => 'button'))?>
-                            <?php echo $this->Html->link("Wygeneruj raport", array('controller' => 'changeKw','action'=> 'generatereport'), array( 'class' => 'button'))?>
+                            <?php echo $this->Html->link("Wygeneruj raport dla klienta", array('controller' => 'changeKw','action'=> 'generatereport'), array( 'class' => 'button'))?>
                             </td>
                         </div>
                     </div>

@@ -363,10 +363,10 @@ class GetrecordsController extends AppController
 
         if ($targetRecord->count() !== 0) {
             foreach ($targetRecord as $hash) {
-            }
+            } //above is useless
             $global_md5 = $hash->md5; //$global_md5 contains md5 from the last result
             if ($global_md5 == $md5) {
-                $flag = false; //if md5s are the same, then string_dzial_drugi is the same, TODO record only time change(?)
+                $flag = false; //if md5s are the same, then string_dzial_drugi is the same, records only time change
                 $flagTwo = true; //update the check date to now, leave rest unchanged
             } else {
                 $flag = true; //md5s are different, write in the database
@@ -375,7 +375,7 @@ class GetrecordsController extends AppController
             $flag = true;
         }
 
-        //if md5 are different record the current version
+        //if md5 are different (or no md5 present) record the current version
         if ($flag) {
             $query->insert(['getrecord_id', 'last_checked', 'string_dzial_drugi', 'counter', 'md5'])
                 ->values([
@@ -401,7 +401,7 @@ class GetrecordsController extends AppController
         }
 
         echo '{ok:"ok"}';
-        die;
+        // die;
 
         }
         /*

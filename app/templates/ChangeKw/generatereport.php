@@ -40,7 +40,7 @@
 //            echo $this->Form->select('id', $clientsKeyValue);
             ?>
         </div>
-        <button type="submit" class="btn btn-success" style="float: right;">Generuj raport dla wszystkich klientów</button>
+        <button type="submit" class="btn btn-success" style="float: right;">Generuj raport dla wszystkich klientów (in progress)</button>
         <?php echo $this->Form->end() ?>
     </div>
 </div>
